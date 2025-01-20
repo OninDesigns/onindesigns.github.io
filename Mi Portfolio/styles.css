@@ -1,0 +1,21 @@
+/* Definimos el contenedor principal para la animación de desplazamiento */
+body {
+    transition: transform 1s ease-in-out;  /* Añadimos la transición del movimiento */
+}
+
+.page-slide {
+    transform: translateX(-100%);  /* Desplazamos el contenido hacia la izquierda */
+}
+.poster-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Espaciado uniforme */
+}
+
+.poster-gallery img {
+    width: 300px; /* Mantiene el ancho fijo */
+    height: 400px; /* Altura fija para que todas sean iguales */
+    object-fit: cover; /* Recorta el exceso sin deformar */
+    border-radius: 10px;
+}
