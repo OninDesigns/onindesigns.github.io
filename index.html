@@ -21,10 +21,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: transform 2s ease-in-out; /* Add transition */
-        }
-        header.transition-left {
-            transform: translateX(-100%); 
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+            opacity: 0;
+            transform: translateY(-30px); /* Empezamos con el header oculto */
         }
         header img {
             width: 170px;
@@ -64,14 +63,16 @@
             background-color: #210053;
             border-color: #210053;
         }
-        .section {
+        .section-container {
             display: flex;
             justify-content: center;
             gap: 80px;
             margin-top: 50px;
             transition: transform 1s ease-in-out;
+            opacity: 0;
+            transform: translateY(30px);
         }
-        .section div {
+        .section {
             text-align: center;
         }
         .section h3 {
@@ -116,6 +117,21 @@
           opacity: 1;
           transform: translateY(0);
         }
+
+        /* Transición suave para la sección */
+        .section-container.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+
+        /* Adaptación para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .section-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -125,8 +141,8 @@
         <h2>A junior self taught <span id="rotatingText" class="rotating-text">UX/UI</span> Designer</h2> 
     </header>
 
-    <div class="section">
-        <div id="projects">
+    <div class="section-container" id="projects">
+        <div class="section">
             <h3>Projects</h3>
             <ul>
                 <li><a href="poster-design.html" id="poster-link">Poster Design</a></li>
@@ -135,7 +151,7 @@
                 <li><a href="ui-ux-design.html" id="ui-ux-design-link">UI / UX Design</a></li>
             </ul>
         </div>
-        <div id="aboutme">
+        <div class="section" id="aboutme">
             <h3>About Me</h3>
             <ul>
                 <li><a href="contact.html" id="aboutme-link">Contact</a></li>
@@ -145,6 +161,7 @@
     </div>
 
     <script>
+        // Rellenar el texto rotativo
         const textArray = ["UX/UI", "Logo", "Wallpaper", "Poster"];
         let currentIndex = 0;
 
@@ -159,47 +176,60 @@
             }, 500); 
         }
 
-        setInterval(rotateText, 2000); // Change the text every 2 seconds
+        setInterval(rotateText, 2000); // Cambia el texto cada 2 segundos
 
+        // Animación en el header y la sección
+        window.addEventListener('load', () => {
+            const headerElement = document.querySelector('header');
+            const sectionContainer = document.querySelector('.section-container');
+
+            // Hacer que el header se deslice al entrar
+            setTimeout(() => {
+                headerElement.style.opacity = 1;
+                headerElement.style.transform = 'translateY(0)';
+            }, 500); // Se activa después de 0.5s
+
+            // Hacer que las secciones de Projects y About Me aparezcan
+            setTimeout(() => {
+                sectionContainer.classList.add('active');
+            }, 1000); // Se activa después de 1s
+        });
+
+        // Agregar transición a los enlaces de Projects y About Me
         const projectLink = document.getElementById('poster-link'); 
         const aboutMeLink = document.getElementById('aboutme-link'); 
 
         projectLink.addEventListener('click', () => {
-          document.querySelector('header').classList.add('transition-left'); 
-
-          setTimeout(() => {
-            window.location.href = 'poster-design.html'; 
-          }, 500); 
+            animateText('Projects');
         });
 
         aboutMeLink.addEventListener('click', () => {
-          animateText('About Me');
+            animateText('About Me');
         });
 
         function animateText(text) {
-          const headerElement = document.querySelector('header');
+            const headerElement = document.querySelector('header');
 
-          const tempElement = document.createElement('div');
-          tempElement.style.position = 'absolute';
-          tempElement.style.top = headerElement.offsetTop + 'px';
-          tempElement.style.left = headerElement.offsetLeft + 'px';
-          tempElement.style.width = headerElement.offsetWidth + 'px';
-          tempElement.style.height = headerElement.offsetHeight + 'px';
-          tempElement.style.backgroundColor = '#232323';
-          tempElement.style.color = '#fff';
-          tempElement.style.fontSize = '20px';
-          tempElement.style.fontWeight = 'bold';
-          tempElement.style.transition = 'transform 0.5s ease-in-out';
-          tempElement.textContent = text;
+            const tempElement = document.createElement('div');
+            tempElement.style.position = 'absolute';
+            tempElement.style.top = headerElement.offsetTop + 'px';
+            tempElement.style.left = headerElement.offsetLeft + 'px';
+            tempElement.style.width = headerElement.offsetWidth + 'px';
+            tempElement.style.height = headerElement.offsetHeight + 'px';
+            tempElement.style.backgroundColor = '#232323';
+            tempElement.style.color = '#fff';
+            tempElement.style.fontSize = '20px';
+            tempElement.style.fontWeight = 'bold';
+            tempElement.style.transition = 'transform 0.5s ease-in-out';
+            tempElement.textContent = text;
 
-          document.body.appendChild(tempElement);
+            document.body.appendChild(tempElement);
 
-          tempElement.style.transform = 'translateX(-100%)';
+            tempElement.style.transform = 'translateX(-100%)';
 
-          setTimeout(() => {
-            document.body.removeChild(tempElement);
-            // window.location.href = 'poster-design.html'; // Uncomment for redirection
-          }, 500); 
+            setTimeout(() => {
+                document.body.removeChild(tempElement);
+            }, 500); 
         }
     </script>
 </body>
