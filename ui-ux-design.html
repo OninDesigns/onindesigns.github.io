@@ -1,142 +1,323 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Onin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: #232323;
-            color: #fff;
-            display: flex;
-            height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI/UX Design - Onin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #141414; /* Fondo más oscuro */
+      color: #fff;
+      overflow-x: hidden;
+    }
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      margin-left: 250px; /* Aseguramos que el contenido no se solape con el sidebar */
+      transition: margin-left 0.3s ease;
+    }
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #232323;
+      padding-top: 60px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+      transition: left 0.3s ease;
+      z-index: 100;
+    }
+    .sidebar a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background-color: #210053;
+      color: white;
+    }
+    .sidebar .logo {
+      display: block;
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .sidebar .logo img {
+      width: 100%;
+    }
+    .menu-btn {
+      font-size: 30px;
+      color: #fff;
+      padding: 0px;
+      cursor: pointer;
+      position: fixed;
+      top: 0px;
+      left: 20px;
+      z-index: 1100;
+    }
 
-        .main-content {
-            display: flex;
-            width: 100%;
-        }
+    /* Project Section */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      justify-content: center;
+      margin-top: 50px;
+      width: 100%;
+    }
+    .project-card {
+      background-color: #333; /* Color uniforme para los recuadros */
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.4s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .project-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    .project-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover img {
+      transform: scale(1.1);
+    }
+    .project-card h3 {
+      margin: 10px 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .project-card p {
+      margin-bottom: 15px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
 
-        .sidebar {
-            background-color: #232323;
-            width: 208px;
-            padding: 30px 0;
-            color: #fff;
-            text-align: left;
-            border-right: 4px solid #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-left: 0px;
-        }
+    /* Expanded Project Information */
+    .expanded-info {
+      display: none;
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #333; /* El mismo color que los recuadros de los proyectos */
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 1500px; /* Aumentamos el tamaño */
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        .sidebar a.logo-link {
-            display: block;
-            width: 90px;
-            margin-bottom: 20px;
-            margin-left: 65px;
-        }
+    .expanded-info.active {
+      display: block;
+      opacity: 1;
+      max-height: 5000px; /* Esto asegura que el contenido se expanda correctamente */
+    }
 
-        .sidebar img {
-            width: 100%;
-        }
+    .step {
+      margin-top: 20px;
+      background-color: #444; /* Color más claro para el fondo de los pasos */
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
 
-        .sidebar h2 {
-            font-size: 28px;
-            font-weight: bold;
-            margin-top: 30px;
-            color: #fff;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #fff;
-            width: 100%;
-            text-align: left;
-        }
+    .step h4 {
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-        .nav-links {
-            margin-top: 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-        }
+    .step p {
+      font-size: 16px;
+      margin-top: 10px;
+    }
 
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 10px 20px;
-            margin: 0;
-            border: 2px solid transparent;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            font-size: 18px;
-        }
+    /* Flecha flotante hacia arriba */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      padding: 15px;
+      cursor: pointer;
+      font-size: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 2000;
+    }
 
-        .nav-links a.active {
-            background-color: #210053;
-            border-color: #210053;
-        }
-
-        .nav-links a:hover {
-            background-color: #210053;
-            border-color: #210053;
-        }
-
-        .content {
-            flex-grow: 1;
-            padding: 30px;
-        }
-
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .gallery img {
-            margin: 20px;
-            width: 300px;
-            height: auto;
-            border-radius: 10px;
-        }
-    </style>
+    .scroll-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="main-content">
-        <div class="sidebar">
-            <a href="index.html" class="logo-link">
-                <img src="logo.png" alt="Logo Onin">
-            </a>
-
-            <h2>Projects</h2>
-            <div class="nav-links">
-                <a href="poster-design.html">Poster Design</a>
-                <a href="wallpaper-design.html">Wallpaper Design</a>
-                <a href="logo-design.html">Logo Design</a>
-                <a href="ui-ux-design.html" class="active">UI/UX Design</a>
-            </div>
-
-            <h2>About Me</h2>
-            <div class="nav-links">
-                <a href="contact.html">Contact</a>
-                <a href="services.html">Services</a>
-            </div>
-        </div>
-
-        <div class="content">
-            <div class="gallery">
-                <img src="uiux1.png" alt="UI/UX 1">
-                <img src="uiux2.png" alt="UI/UX 2">
-                <img src="uiux3.png" alt="UI/UX 3">
-            </div>
-        </div>
+  <div class="menu-btn" id="menuBtn" onclick="toggleSidebar()">&#9776;</div>
+  <div class="main-content">
+    <div class="sidebar" id="sidebar">
+      <div class="logo">
+        <img src="logo.png" alt="Logo Onin">
+      </div>
+      <a href="poster-design.html">Poster Design</a>
+      <a href="wallpaper-design.html">Wallpaper Design</a>
+      <a href="logo-design.html">Logo Design</a>
+      <a href="ui-ux-design.html" class="active">UI/UX Design</a>
+      <a href="contact.html">Contact</a>
+      <a href="services.html">Services</a>
     </div>
+    <div class="content">
+      <h2>UX/UI Design</h2>
+      <p>I specialize in creating user-centered designs that are both beautiful and functional. I work closely with clients to understand their needs and translate them into intuitive and engaging user experiences.</p>
+      <div class="projects">
+        <div class="project-card" onclick="expandInfo(1)">
+          <img src="project1.png" alt="Project 1 Thumbnail">
+          <h3>Project 1: [Project Name]</h3>
+          <p>Brief description of Project 1.</p>
+        </div>
+        <div class="project-card" onclick="expandInfo(2)">
+          <img src="project2.png" alt="Project 2 Thumbnail">
+          <h3>Project 2: [Project Name]</h3>
+          <p>Brief description of Project 2.</p>
+        </div>
+        <div class="project-card" onclick="expandInfo(3)">
+          <img src="project3.png" alt="Project 3 Thumbnail">
+          <h3>Project 3: [Project Name]</h3>
+          <p>Brief description of Project 3.</p>
+        </div>
+      </div>
 
+      <!-- Project Expanded Information -->
+      <div class="expanded-info" id="expandedInfo1">
+        <img src="project1.png" alt="Project 1" style="width: 100%; max-width: 600px; height: auto; border-radius: 15px; display: block; margin: 0 auto;">
+        <h3>Project 1: [Project Name]</h3>
+        <div class="step">
+          <h4>1. Research & Analysis</h4>
+          <p>We began by conducting thorough research, including user surveys and competitor analysis, to understand the needs and preferences of our target audience.</p>
+        </div>
+        <div class="step">
+          <h4>2. Wireframing & Prototyping</h4>
+          <p>After gathering insights, we created low-fidelity wireframes and high-fidelity prototypes to visualize the layout and structure of the design. This stage helped us define user flows and map out the key features.</p>
+        </div>
+        <div class="step">
+          <h4>3. Visual Design</h4>
+          <p>We then focused on the visual design, choosing color schemes, typography, and imagery that align with the brand's identity. We also worked to ensure the design was accessible and user-friendly.</p>
+        </div>
+        <div class="step">
+          <h4>4. Usability Testing</h4>
+          <p>We conducted several rounds of usability testing to ensure that the design is user-friendly and intuitive. Feedback from users helped us fine-tune the design and resolve usability issues.</p>
+        </div>
+        <div class="step">
+          <h4>5. Launch & Evaluation</h4>
+          <p>Finally, we launched the design and closely monitored user feedback to make necessary improvements in future iterations. Continuous testing and updates ensure the best user experience.</p>
+        </div>
+      </div>
+
+      <div class="expanded-info" id="expandedInfo2">
+        <img src="project2.png" alt="Project 2" style="width: 100%; max-width: 600px; height: auto; border-radius: 15px; display: block; margin: 0 auto;">
+        <h3>Project 2: [Project Name]</h3>
+        <div class="step">
+          <h4>1. Research & Analysis</h4>
+          <p>We began by conducting thorough research, including user surveys and competitor analysis, to understand the needs and preferences of our target audience.</p>
+        </div>
+        <div class="step">
+          <h4>2. Wireframing & Prototyping</h4>
+          <p>After gathering insights, we created low-fidelity wireframes and high-fidelity prototypes to visualize the layout and structure of the design. This stage helped us define user flows and map out the key features.</p>
+        </div>
+        <div class="step">
+          <h4>3. Visual Design</h4>
+          <p>We then focused on the visual design, choosing color schemes, typography, and imagery that align with the brand's identity. We also worked to ensure the design was accessible and user-friendly.</p>
+        </div>
+        <div class="step">
+          <h4>4. Usability Testing</h4>
+          <p>We conducted several rounds of usability testing to ensure that the design is user-friendly and intuitive. Feedback from users helped us fine-tune the design and resolve usability issues.</p>
+        </div>
+        <div class="step">
+          <h4>5. Launch & Evaluation</h4>
+          <p>Finally, we launched the design and closely monitored user feedback to make necessary improvements in future iterations. Continuous testing and updates ensure the best user experience.</p>
+        </div>
+      </div>
+
+      <div class="expanded-info" id="expandedInfo3">
+        <img src="project3.png" alt="Project 3" style="width: 100%; max-width: 600px; height: auto; border-radius: 15px; display: block; margin: 0 auto;">
+        <h3>Project 3: [Project Name]</h3>
+        <div class="step">
+          <h4>1. Research & Analysis</h4>
+          <p>We began by conducting thorough research, including user surveys and competitor analysis, to understand the needs and preferences of our target audience.</p>
+        </div>
+        <div class="step">
+          <h4>2. Wireframing & Prototyping</h4>
+          <p>After gathering insights, we created low-fidelity wireframes and high-fidelity prototypes to visualize the layout and structure of the design. This stage helped us define user flows and map out the key features.</p>
+        </div>
+        <div class="step">
+          <h4>3. Visual Design</h4>
+          <p>We then focused on the visual design, choosing color schemes, typography, and imagery that align with the brand's identity. We also worked to ensure the design was accessible and user-friendly.</p>
+        </div>
+        <div class="step">
+          <h4>4. Usability Testing</h4>
+          <p>We conducted several rounds of usability testing to ensure that the design is user-friendly and intuitive. Feedback from users helped us fine-tune the design and resolve usability issues.</p>
+        </div>
+        <div class="step">
+          <h4>5. Launch & Evaluation</h4>
+          <p>Finally, we launched the design and closely monitored user feedback to make necessary improvements in future iterations. Continuous testing and updates ensure the best user experience.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">&#8593;</button>
+
+  <script>
+    let currentExpandedInfo = null;
+
+    function expandInfo(projectId) {
+      if (currentExpandedInfo !== null) {
+        document.getElementById('expandedInfo' + currentExpandedInfo).classList.remove('active');
+      }
+
+      const expandedInfo = document.getElementById('expandedInfo' + projectId);
+      expandedInfo.classList.add('active');
+      currentExpandedInfo = projectId;
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Mostrar el botón solo cuando el usuario hace scroll
+    window.onscroll = function() {
+      const scrollToTopButton = document.getElementById('scrollToTop');
+      if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
+        scrollToTopButton.classList.add('show');
+      } else {
+        scrollToTopButton.classList.remove('show');
+      }
+    };
+  </script>
 </body>
 </html>
