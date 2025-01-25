@@ -3,175 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Onin</title>
+    <title>Contact - Onin</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #232323;
+            background-color: #141414;
             color: #fff;
-            display: flex;
-            height: 100vh;
+            overflow-x: hidden;
         }
 
         .main-content {
             display: flex;
-            width: 100%;
+            transition: margin-left 0.3s ease;
         }
 
         .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
             background-color: #232323;
-            width: 208px;
-            padding: 30px 0;
-            color: #fff;
-            text-align: left;
-            border-right: 4px solid #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-left: 0px;
+            padding-top: 60px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s ease;
         }
 
-        .sidebar a.logo-link {
-            display: block;
-            width: 90px;
-            margin-bottom: 20px;
-            margin-left: 65px;
-        }
-
-        .sidebar img {
-            width: 100%;
-        }
-
-        .sidebar h2 {
-            font-size: 28px;
-            font-weight: bold;
-            margin-top: 30px;
-            color: #fff;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #fff;
-            width: 100%;
-            text-align: left;
-        }
-
-        .nav-links {
-            margin-top: 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .nav-links a {
-            color: #fff;
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
             text-decoration: none;
-            font-weight: 600;
-            padding: 10px 20px;
-            margin: 0;
-            border: 2px solid transparent;
-            border-radius: 30px;
-            transition: all 0.3s ease;
             font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
         }
 
-        .nav-links a.active {
+        .sidebar a:hover, .sidebar a.active {
             background-color: #210053;
-            border-color: #210053;
+            color: white;
         }
 
-        .nav-links a:hover {
-            background-color: #210053;
-            border-color: #210053;
+        .sidebar .logo img {
+            max-width: 100%;
+            cursor: pointer;
+        }
+
+        .menu-btn {
+            font-size: 30px;
+            color: #fff;
+            padding: 0px;
+            cursor: pointer;
+            position: fixed;
+            top: 0px;
+            left: 20px;
+            z-index: 1100;
+            transition: left 0.3s ease;
         }
 
         .content {
             flex-grow: 1;
             padding: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            text-align: center;
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
         }
 
         .contact-form {
-            background: #333;
-            padding: 30px;
+            max-width: 600px;
+            margin: 50px auto;
+            background: #2a2a2a;
+            padding: 20px;
             border-radius: 10px;
-            width: 400px;
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
-        .contact-form label {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
+        .contact-form input, .contact-form textarea {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin: 10px 0;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
+            background: #333;
+            color: white;
         }
 
         .contact-form button {
+            width: 100%;
             padding: 10px;
-            background-color: #210053;
-            color: white;
             border: none;
             border-radius: 5px;
-            font-size: 18px;
+            background: #210053;
+            color: white;
             cursor: pointer;
             transition: 0.3s;
         }
 
         .contact-form button:hover {
-            background-color: #3a007d;
+            background: #3a007a;
         }
     </style>
 </head>
 <body>
+    <div class="menu-btn" id="menuBtn" onclick="toggleSidebar()">&#9776;</div>
 
     <div class="main-content">
-        <div class="sidebar">
-            <a href="index.html" class="logo-link">
+        <div class="sidebar" id="sidebar">
+            <div class="logo" onclick="goHome()">
                 <img src="logo.png" alt="Logo Onin">
-            </a>
-
-            <h2>Projects</h2>
-            <div class="nav-links">
-                <a href="poster-design.html">Poster Design</a>
-                <a href="wallpaper-design.html">Wallpaper Design</a>
-                <a href="logo-design.html">Logo Design</a>
-                <a href="ui-ux-design.html">UI/UX Design</a>
             </div>
-
-            <h2>About Me</h2>
-            <div class="nav-links">
-                <a href="contact.html" class="active">Contact</a>
-                <a href="services.html">Services</a>
-            </div>
+            <a href="poster-design.html">Poster Design</a>
+            <a href="wallpaper-design.html">Wallpaper Design</a>
+            <a href="logo-design.html">Logo Design</a>
+            <a href="ui-ux-design.html">UI/UX Design</a>
+            <a href="contact.html" class="active">Contact</a>
+            <a href="services.html">Services</a>
         </div>
 
         <div class="content">
-            <form class="contact-form">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-                
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-                
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-                
-                <button type="submit">Send</button>
-            </form>
+            <h1>Contact Us</h1>
+            <div class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </div>
         </div>
     </div>
 
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const content = document.querySelector('.content');
+            const menuBtn = document.getElementById('menuBtn');
+            if (sidebar.style.left === '0px') {
+                sidebar.style.left = '-250px';
+                content.style.marginLeft = '0';
+                menuBtn.innerHTML = '&#9776;';
+            } else {
+                sidebar.style.left = '0';
+                content.style.marginLeft = '250px';
+                menuBtn.innerHTML = '&#8592;';
+            }
+        }
+
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 </html>

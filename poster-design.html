@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #232323;
+            background-color: #141414;
             color: #fff;
             overflow-x: hidden;
         }
@@ -52,7 +52,7 @@
 
         .sidebar .logo img {
             max-width: 100%;
-            cursor: default;
+            cursor: pointer;
             transition: none !important; /* Elimino el efecto hover completamente con !important */
         }
 
@@ -139,17 +139,15 @@
     <div class="menu-btn" id="menuBtn" onclick="toggleSidebar()">&#9776;</div>
 
     <div class="main-content">
-        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
-                <div class="logo">
-                    <img src="logo.png" alt="Logo Onin">
-                </div>
-            </a>
-            <a href="poster-design.html" class="active">Poster Design</a> <!-- Aquí agregamos la clase "active" -->
+            <div class="logo" onclick="goHome()">
+                <img src="logo.png" alt="Logo Onin">
+            </div>
+            <a href="poster-design.html"class="active">Poster Design</a>
             <a href="wallpaper-design.html">Wallpaper Design</a>
             <a href="logo-design.html">Logo Design</a>
             <a href="ui-ux-design.html">UI/UX Design</a>
-            <a href="contact.html">Contact</a>
+            <a href="contact.html" >Contact</a>
             <a href="services.html">Services</a>
         </div>
 
@@ -227,6 +225,11 @@
             const image = event.currentTarget;
             image.style.transition = "transform 0.3s ease";  // Añadimos la transición para que vuelva suavemente
             image.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";  // Vuelve a la posición original
+        }
+
+        
+        function goHome() {
+            window.location.href = 'index.html';
         }
     </script>
 
