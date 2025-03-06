@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UI/UX Design - Onin</title>
+  <title>Diseño UX/UI - Onin</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #141414; /* Fondo más oscuro */
+      background-color: #141414;
       color: #fff;
       overflow-x: hidden;
     }
@@ -19,7 +20,7 @@
       flex-direction: column;
       align-items: center;
       padding: 30px;
-      margin-left: 250px; /* Aseguramos que el contenido no se solape con el sidebar */
+      margin-left: 250px;
       transition: margin-left 0.3s ease;
     }
     .sidebar {
@@ -64,9 +65,10 @@
       top: 0px;
       left: 20px;
       z-index: 1100;
+      transition: left 0.3s ease;
     }
 
-    /* Project Section */
+    /* Sección de Proyectos */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -76,7 +78,7 @@
       width: 100%;
     }
     .project-card {
-      background-color: #333; /* Color uniforme para los recuadros */
+      background-color: #333;
       border-radius: 15px;
       overflow: hidden;
       cursor: pointer;
@@ -91,6 +93,11 @@
     .project-card:hover {
       transform: scale(1.05);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    .project-card.active {
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      border: 2px solid #210053;
     }
     .project-card img {
       width: 100%;
@@ -112,44 +119,24 @@
       opacity: 0.8;
     }
 
-    /* Expanded Project Information */
+    /* Información Expandida del Proyecto */
     .expanded-info {
-      display: none;
-      margin-top: 30px;
-      padding: 20px;
-      background-color: #333; /* El mismo color que los recuadros de los proyectos */
-      border-radius: 15px;
-      transition: all 0.3s ease;
-      width: 100%;
-      max-width: 1500px; /* Aumentamos el tamaño */
-      opacity: 0;
       max-height: 0;
       overflow: hidden;
+      transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+      opacity: 0;
+      margin-top: 30px;
+      padding: 0 20px;
+      background-color: #333;
+      border-radius: 15px;
+      width: 100%;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .expanded-info.active {
-      display: block;
+      max-height: none;
       opacity: 1;
-      max-height: 5000px; /* Esto asegura que el contenido se expanda correctamente */
-    }
-
-    .step {
-      margin-top: 20px;
-      background-color: #444; /* Color más claro para el fondo de los pasos */
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-
-    .step h4 {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .step p {
-      font-size: 16px;
-      margin-top: 10px;
+      padding: 20px;
     }
 
     /* Flecha flotante hacia arriba */
@@ -157,7 +144,7 @@
       position: fixed;
       bottom: 30px;
       right: 30px;
-      background-color: #444;
+      background-color: #210053;
       color: #fff;
       border: none;
       border-radius: 50%;
@@ -166,13 +153,90 @@
       font-size: 24px;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease;
       z-index: 2000;
+    }
+
+    .scroll-to-top:hover {
+      background-color: #fff;
+      color: #210053;
     }
 
     .scroll-to-top.show {
       opacity: 1;
       visibility: visible;
+    }
+
+    /* Estilos para el iframe de Figma */
+    .figma-container {
+      display: flex;
+      justify-content: center; /* Centrar el iframe horizontalmente */
+      margin: 20px 0; /* Espacio arriba y abajo */
+    }
+
+    .figma-iframe {
+      width: 375px; /* Ancho de un móvil estándar */
+      height: 667px; /* Alto de un móvil estándar */
+      border: none; /* Eliminar el borde del iframe */
+      background: transparent; /* Fondo transparente */
+    }
+
+    /* Estilos para la modal */
+    .modal {
+      display: none; /* Ocultar por defecto */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #141414;
+      border-radius: 10px;
+      padding: 20px;
+      width: 90%;
+      max-width: 800px;
+      position: relative;
+    }
+
+    /* Estilos para el botón de cerrar */
+    .close-modal-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* Estilos para el iframe dentro de la modal */
+    .slides-iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    /* Estilos para el botón de abrir la modal */
+    .open-modal-btn {
+      background-color: #210053;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .open-modal-btn:hover {
+      background-color: #fff;
+      color: #210053;
     }
   </style>
 </head>
@@ -183,110 +247,63 @@
       <div class="logo">
         <img src="logo.png" alt="Logo Onin">
       </div>
-      <a href="poster-design.html">Poster Design</a>
-      <a href="wallpaper-design.html">Wallpaper Design</a>
-      <a href="logo-design.html">Logo Design</a>
-      <a href="ui-ux-design.html" class="active">UI/UX Design</a>
-      <a href="contact.html">Contact</a>
-      <a href="services.html">Services</a>
+      <a href="poster-design.html">Diseño de Posters</a>
+      <a href="wallpaper-design.html">Diseño de Fondos</a>
+      <a href="logo-design.html">Diseño de Logos</a>
+      <a href="ui-ux-design.html" class="active">Diseño UX/UI</a>
+      <a href="contact.html">Contacto</a>
+      <a href="services.html">Servicios</a>
     </div>
     <div class="content">
-      <h2>UX/UI Design</h2>
-      <p>I specialize in creating user-centered designs that are both beautiful and functional. I work closely with clients to understand their needs and translate them into intuitive and engaging user experiences.</p>
+      <h2>Diseño UX/UI</h2>
+      <p>Me especializo en crear diseños centrados en el usuario que sean hermosos y funcionales. Trabajo estrechamente con los clientes para comprender sus necesidades y traducirlas en experiencias de usuario intuitivas y atractivas.</p>
       <div class="projects">
         <div class="project-card" onclick="expandInfo(1)">
-          <img src="project1.png" alt="Project 1 Thumbnail">
-          <h3>Project 1: [Project Name]</h3>
-          <p>Brief description of Project 1.</p>
+          <img src="project1.png" alt="Miniatura del Proyecto 1">
+          <h3>Proyecto 1: App de Listas de Videojuegos</h3>
+          <p>Una aplicación para organizar y seguir tu colección de videojuegos.</p>
         </div>
         <div class="project-card" onclick="expandInfo(2)">
-          <img src="project2.png" alt="Project 2 Thumbnail">
-          <h3>Project 2: [Project Name]</h3>
-          <p>Brief description of Project 2.</p>
+          <img src="project2.png" alt="Miniatura del Proyecto 2">
+          <h3>Proyecto 2: [Nombre del Proyecto]</h3>
+          <p>Breve descripción del Proyecto 2.</p>
         </div>
         <div class="project-card" onclick="expandInfo(3)">
-          <img src="project3.png" alt="Project 3 Thumbnail">
-          <h3>Project 3: [Project Name]</h3>
-          <p>Brief description of Project 3.</p>
+          <img src="project3.png" alt="Miniatura del Proyecto 3">
+          <h3>Proyecto 3: [Nombre del Proyecto]</h3>
+          <p>Breve descripción del Proyecto 3.</p>
         </div>
       </div>
 
-      <!-- Project Expanded Information -->
+      <!-- Información Expandida del Proyecto -->
       <div class="expanded-info" id="expandedInfo1">
-        <img src="project1.png" alt="Project 1" style="width: 100%; max-width: 600px; height: auto; border-radius: 15px; display: block; margin: 0 auto;">
-        <h3>Project 1: [Project Name]</h3>
-        <div class="step">
-          <h4>1. Research & Analysis</h4>
-          <p>We began by conducting thorough research, including user surveys and competitor analysis, to understand the needs and preferences of our target audience.</p>
+        <h3>Proyecto 1: App de Listas de Videojuegos</h3>
+        <div class="figma-container">
+          <iframe
+            class="figma-iframe"
+            src="https://www.figma.com/proto/i0tCNxONXejrvfQPfiJyV3/Video-Game-Lists-App-project?page-id=0%3A1&node-id=450-166&p=f&viewport=10%2C270%2C0.6&t=KWybPdqB3Uuj5Wer-8&scaling=contain&content-scaling=fixed&starting-point-node-id=450%3A166&hide-ui=1&show-proto-sidebar=0"
+            allowfullscreen
+            allowtransparency="true"
+          ></iframe>
         </div>
-        <div class="step">
-          <h4>2. Wireframing & Prototyping</h4>
-          <p>After gathering insights, we created low-fidelity wireframes and high-fidelity prototypes to visualize the layout and structure of the design. This stage helped us define user flows and map out the key features.</p>
-        </div>
-        <div class="step">
-          <h4>3. Visual Design</h4>
-          <p>We then focused on the visual design, choosing color schemes, typography, and imagery that align with the brand's identity. We also worked to ensure the design was accessible and user-friendly.</p>
-        </div>
-        <div class="step">
-          <h4>4. Usability Testing</h4>
-          <p>We conducted several rounds of usability testing to ensure that the design is user-friendly and intuitive. Feedback from users helped us fine-tune the design and resolve usability issues.</p>
-        </div>
-        <div class="step">
-          <h4>5. Launch & Evaluation</h4>
-          <p>Finally, we launched the design and closely monitored user feedback to make necessary improvements in future iterations. Continuous testing and updates ensure the best user experience.</p>
-        </div>
+        <!-- Botón para abrir la modal -->
+        <button class="open-modal-btn" onclick="openModal()">Ver Presentación</button>
       </div>
 
-      <div class="expanded-info" id="expandedInfo2">
-        <img src="project2.png" alt="Project 2" style="width: 100%; max-width: 600px; height: auto; border-radius: 15px; display: block; margin: 0 auto;">
-        <h3>Project 2: [Project Name]</h3>
-        <div class="step">
-          <h4>1. Research & Analysis</h4>
-          <p>We began by conducting thorough research, including user surveys and competitor analysis, to understand the needs and preferences of our target audience.</p>
-        </div>
-        <div class="step">
-          <h4>2. Wireframing & Prototyping</h4>
-          <p>After gathering insights, we created low-fidelity wireframes and high-fidelity prototypes to visualize the layout and structure of the design. This stage helped us define user flows and map out the key features.</p>
-        </div>
-        <div class="step">
-          <h4>3. Visual Design</h4>
-          <p>We then focused on the visual design, choosing color schemes, typography, and imagery that align with the brand's identity. We also worked to ensure the design was accessible and user-friendly.</p>
-        </div>
-        <div class="step">
-          <h4>4. Usability Testing</h4>
-          <p>We conducted several rounds of usability testing to ensure that the design is user-friendly and intuitive. Feedback from users helped us fine-tune the design and resolve usability issues.</p>
-        </div>
-        <div class="step">
-          <h4>5. Launch & Evaluation</h4>
-          <p>Finally, we launched the design and closely monitored user feedback to make necessary improvements in future iterations. Continuous testing and updates ensure the best user experience.</p>
+      <!-- Ventana Modal -->
+      <div class="modal" id="slidesModal">
+        <div class="modal-content">
+          <span class="close-modal-btn" onclick="closeModal()">&times;</span>
+          <iframe 
+            class="slides-iframe"
+            src="https://docs.google.com/presentation/d/e/2PACX-1vTk8DkgjwiTaAHUpT5wOtICOo2nbbT1gi_WnKktuoHzRM6ueKhIje9haQfFC1dtStcpnXxlpZ11OBP9/embed?start=false&loop=false&delayms=3000" 
+            frameborder="0"
+            allowfullscreen="true" 
+            mozallowfullscreen="true" 
+            webkitallowfullscreen="true">
+          </iframe>
         </div>
       </div>
-
-      <div class="expanded-info" id="expandedInfo3">
-        <img src="project3.png" alt="Project 3" style="width: 100%; max-width: 600px; height: auto; border-radius: 15px; display: block; margin: 0 auto;">
-        <h3>Project 3: [Project Name]</h3>
-        <div class="step">
-          <h4>1. Research & Analysis</h4>
-          <p>We began by conducting thorough research, including user surveys and competitor analysis, to understand the needs and preferences of our target audience.</p>
-        </div>
-        <div class="step">
-          <h4>2. Wireframing & Prototyping</h4>
-          <p>After gathering insights, we created low-fidelity wireframes and high-fidelity prototypes to visualize the layout and structure of the design. This stage helped us define user flows and map out the key features.</p>
-        </div>
-        <div class="step">
-          <h4>3. Visual Design</h4>
-          <p>We then focused on the visual design, choosing color schemes, typography, and imagery that align with the brand's identity. We also worked to ensure the design was accessible and user-friendly.</p>
-        </div>
-        <div class="step">
-          <h4>4. Usability Testing</h4>
-          <p>We conducted several rounds of usability testing to ensure that the design is user-friendly and intuitive. Feedback from users helped us fine-tune the design and resolve usability issues.</p>
-        </div>
-        <div class="step">
-          <h4>5. Launch & Evaluation</h4>
-          <p>Finally, we launched the design and closely monitored user feedback to make necessary improvements in future iterations. Continuous testing and updates ensure the best user experience.</p>
-        </div>
-      </div>
-
     </div>
   </div>
 
@@ -296,13 +313,25 @@
     let currentExpandedInfo = null;
 
     function expandInfo(projectId) {
-      if (currentExpandedInfo !== null) {
-        document.getElementById('expandedInfo' + currentExpandedInfo).classList.remove('active');
-      }
-
+      const projectCard = document.querySelector(`.project-card[onclick="expandInfo(${projectId})"]`);
       const expandedInfo = document.getElementById('expandedInfo' + projectId);
-      expandedInfo.classList.add('active');
-      currentExpandedInfo = projectId;
+
+      if (currentExpandedInfo === expandedInfo) {
+        expandedInfo.classList.remove('active');
+        projectCard.classList.remove('active');
+        currentExpandedInfo = null;
+      } else {
+        if (currentExpandedInfo) {
+          currentExpandedInfo.classList.remove('active');
+          document.querySelector(`.project-card[onclick*="${currentExpandedInfo.id.replace('expandedInfo', '')}"]`).classList.remove('active');
+        }
+        expandedInfo.classList.add('active');
+        projectCard.classList.add('active');
+        currentExpandedInfo = expandedInfo;
+
+        // Scroll suave hasta la sección expandida
+        expandedInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     function scrollToTop() {
@@ -318,6 +347,42 @@
         scrollToTopButton.classList.remove('show');
       }
     };
+
+    // Función para abrir/cerrar el sidebar
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const content = document.querySelector('.main-content');
+      const menuBtn = document.getElementById('menuBtn');
+      if (sidebar.style.left === '0px') {
+        sidebar.style.left = '-250px';
+        content.style.marginLeft = '0';
+        menuBtn.innerHTML = '&#9776;';
+      } else {
+        sidebar.style.left = '0';
+        content.style.marginLeft = '250px';
+        menuBtn.innerHTML = '&#10005;';
+      }
+    }
+
+    // Funciones para la modal
+    function openModal() {
+      const modal = document.getElementById('slidesModal');
+      modal.style.display = 'flex'; // Mostrar la modal
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('slidesModal');
+      modal.style.display = 'none'; // Ocultar la modal
+    }
+
+    // Cerrar la modal al hacer clic fuera del contenido
+    window.onclick = function(event) {
+      const modal = document.getElementById('slidesModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </body>
 </html>
