@@ -240,10 +240,23 @@
       background-color: #fff;
       color: #210053;
     }
+
+    /* Responsividad */
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -250px;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .menu-btn {
+        left: 10px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="menu-btn" id="menuBtn" onclick="toggleSidebar()">&#9776;</div>
+  <div class="menu-btn" id="menuBtn">&#9776;</div>
   <div class="main-content">
     <div class="sidebar" id="sidebar">
       <div class="logo">
@@ -260,17 +273,17 @@
       <h2>Diseño UX/UI</h2>
       <p>Me especializo en crear diseños centrados en el usuario que sean hermosos y funcionales. Trabajo estrechamente con los clientes para comprender sus necesidades y traducirlas en experiencias de usuario intuitivas y atractivas.</p>
       <div class="projects">
-        <div class="project-card" onclick="expandInfo(1)">
+        <div class="project-card" data-project-id="1">
           <img src="project1.png" alt="Miniatura del Proyecto 1">
           <h3>Proyecto 1: App de Listas de Videojuegos</h3>
           <p>Una aplicación para organizar y seguir tu colección de videojuegos.</p>
         </div>
-        <div class="project-card" onclick="expandInfo(2)">
+        <div class="project-card" data-project-id="2">
           <img src="project2.png" alt="Miniatura del Proyecto 2">
           <h3>Proyecto 2: [Nombre del Proyecto]</h3>
           <p>Breve descripción del Proyecto 2.</p>
         </div>
-        <div class="project-card" onclick="expandInfo(3)">
+        <div class="project-card" data-project-id="3">
           <img src="project3.png" alt="Miniatura del Proyecto 3">
           <h3>Proyecto 3: [Nombre del Proyecto]</h3>
           <p>Breve descripción del Proyecto 3.</p>
@@ -284,19 +297,19 @@
         <div class="figma-container">
           <iframe
             class="figma-iframe"
-            src="https://embed.figma.com/proto/i0tCNxONXejrvfQPfiJyV3/Video-Game-Lists-App-project?page-id=0%3A1&node-id=450-166&p=f&viewport=10%2C270%2C0.6&scaling=scale-down&content-scaling=fixed&starting-point-node-id=450%3A166&embed-host=share"
+            src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/i0tCNxONXejrvfQPfiJyV3/Video-Game-Lists-App-project?page-id=0%3A1&node-id=450-166&scaling=scale-down&starting-point-node-id=450%3A166"
             allowfullscreen
             allowtransparency="true"
           ></iframe>
         </div>
         <!-- Botón para abrir la modal -->
-        <button class="open-modal-btn" onclick="openModal()">Ver Presentación</button>
+        <button class="open-modal-btn">Ver Presentación</button>
       </div>
 
       <!-- Ventana Modal -->
       <div class="modal" id="slidesModal">
         <div class="modal-content">
-          <span class="close-modal-btn" onclick="closeModal()">&times;</span>
+          <span class="close-modal-btn">&times;</span>
           <iframe 
             class="slides-iframe"
             src="https://docs.google.com/presentation/d/e/2PACX-1vTk8DkgjwiTaAHUpT5wOtICOo2nbbT1gi_WnKktuoHzRM6ueKhIje9haQfFC1dtStcpnXxlpZ11OBP9/embed?start=false&loop=false&delayms=3000" 
@@ -310,81 +323,88 @@
     </div>
   </div>
 
-  <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">&#8593;</button>
+  <button class="scroll-to-top" id="scrollToTop">&#8593;</button>
 
   <script>
-    let currentExpandedInfo = null;
-
-    function expandInfo(projectId) {
-      const projectCard = document.querySelector(`.project-card[onclick="expandInfo(${projectId})"]`);
-      const expandedInfo = document.getElementById('expandedInfo' + projectId);
-
-      if (currentExpandedInfo === expandedInfo) {
-        expandedInfo.classList.remove('active');
-        projectCard.classList.remove('active');
-        currentExpandedInfo = null;
-      } else {
-        if (currentExpandedInfo) {
-          currentExpandedInfo.classList.remove('active');
-          document.querySelector(`.project-card[onclick*="${currentExpandedInfo.id.replace('expandedInfo', '')}"]`).classList.remove('active');
-        }
-        expandedInfo.classList.add('active');
-        projectCard.classList.add('active');
-        currentExpandedInfo = expandedInfo;
-
-        // Scroll suave hasta la sección expandida
-        expandedInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Mostrar el botón solo cuando el usuario hace scroll
-    window.onscroll = function() {
-      const scrollToTopButton = document.getElementById('scrollToTop');
-      if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
-        scrollToTopButton.classList.add('show');
-      } else {
-        scrollToTopButton.classList.remove('show');
-      }
-    };
-
-    // Función para abrir/cerrar el sidebar
-    function toggleSidebar() {
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById('menuBtn');
       const sidebar = document.getElementById('sidebar');
       const content = document.querySelector('.main-content');
-      const menuBtn = document.getElementById('menuBtn');
-      if (sidebar.style.left === '0px') {
-        sidebar.style.left = '-250px';
-        content.style.marginLeft = '0';
-        menuBtn.innerHTML = '&#9776;';
-      } else {
-        sidebar.style.left = '0';
-        content.style.marginLeft = '250px';
-        menuBtn.innerHTML = '&#10005;';
+      const scrollToTopButton = document.getElementById('scrollToTop');
+      const modal = document.getElementById('slidesModal');
+      let currentExpandedInfo = null;
+
+      // Función para mostrar/ocultar la barra lateral
+      menuBtn.addEventListener('click', function() {
+        if (sidebar.style.left === '0px') {
+          sidebar.style.left = '-250px';
+          content.style.marginLeft = '0';
+          menuBtn.innerHTML = '&#9776;';
+        } else {
+          sidebar.style.left = '0';
+          content.style.marginLeft = '250px';
+          menuBtn.innerHTML = '&#10005;';
+        }
+      });
+
+      // Función para expandir/colapsar la información del proyecto
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const projectId = this.getAttribute('data-project-id');
+          const expandedInfo = document.getElementById('expandedInfo' + projectId);
+
+          if (currentExpandedInfo === expandedInfo) {
+            expandedInfo.classList.remove('active');
+            this.classList.remove('active');
+            currentExpandedInfo = null;
+          } else {
+            if (currentExpandedInfo) {
+              currentExpandedInfo.classList.remove('active');
+              document.querySelector(`.project-card[data-project-id="${currentExpandedInfo.id.replace('expandedInfo', '')}"]`).classList.remove('active');
+            }
+            expandedInfo.classList.add('active');
+            this.classList.add('active');
+            currentExpandedInfo = expandedInfo;
+
+            // Scroll suave hasta la sección expandida
+            expandedInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Función para mostrar el botón de scroll to top
+      window.onscroll = function() {
+        if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
+          scrollToTopButton.classList.add('show');
+        } else {
+          scrollToTopButton.classList.remove('show');
+        }
+      };
+
+      // Función para scroll to top
+      scrollToTopButton.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Funciones para la modal
+      document.querySelector('.open-modal-btn').addEventListener('click', openModal);
+      document.querySelector('.close-modal-btn').addEventListener('click', closeModal);
+
+      function openModal() {
+        modal.style.display = 'flex';
       }
-    }
 
-    // Funciones para la modal
-    function openModal() {
-      const modal = document.getElementById('slidesModal');
-      modal.style.display = 'flex'; // Mostrar la modal
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('slidesModal');
-      modal.style.display = 'none'; // Ocultar la modal
-    }
-
-    // Cerrar la modal al hacer clic fuera del contenido
-    window.onclick = function(event) {
-      const modal = document.getElementById('slidesModal');
-      if (event.target === modal) {
-        closeModal();
+      function closeModal() {
+        modal.style.display = 'none';
       }
-    };
+
+      // Cerrar la modal al hacer clic fuera del contenido
+      window.onclick = function(event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      };
+    });
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </body>
