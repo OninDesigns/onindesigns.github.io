@@ -164,8 +164,9 @@
       margin: 20px 0;
     }
     .figma-iframe {
-      width: 375px;
-      height: 667px;
+      width: 100%;
+      max-width: 800px;
+      height: 500px;
       border: none;
       background: transparent;
     }
@@ -186,8 +187,12 @@
       border-radius: 10px;
       padding: 20px;
       width: 90%;
-      max-width: 800px;
+      max-width: 1200px;
+      height: 80%;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .close-modal-btn {
       position: absolute;
@@ -199,7 +204,7 @@
     }
     .slides-iframe {
       width: 100%;
-      height: 500px;
+      height: 100%;
       border: none;
       border-radius: 10px;
     }
@@ -228,6 +233,13 @@
       }
       .menu-btn {
         left: 10px;
+      }
+      .figma-iframe {
+        height: 300px;
+      }
+      .modal-content {
+        width: 95%;
+        height: 90%;
       }
     }
   </style>
