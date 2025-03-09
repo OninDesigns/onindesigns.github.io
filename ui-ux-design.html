@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
   <style>
+    /* Estilos anteriores (sin cambios) */
     body {
       margin: 0;
       padding: 0;
@@ -67,8 +68,6 @@
       z-index: 1100;
       transition: left 0.3s ease;
     }
-
-    /* Sección de Proyectos */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -118,8 +117,6 @@
       font-size: 14px;
       opacity: 0.8;
     }
-
-    /* Información Expandida del Proyecto */
     .expanded-info {
       max-height: 0;
       overflow: hidden;
@@ -132,14 +129,11 @@
       width: 100%;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-
     .expanded-info.active {
       max-height: none;
       opacity: 1;
       padding: 20px;
     }
-
-    /* Flecha flotante hacia arriba */
     .scroll-to-top {
       position: fixed;
       bottom: 30px;
@@ -156,45 +150,37 @@
       transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease;
       z-index: 2000;
     }
-
     .scroll-to-top:hover {
       background-color: #fff;
       color: #210053;
     }
-
     .scroll-to-top.show {
       opacity: 1;
       visibility: visible;
     }
-
-    /* Estilos para el iframe de Figma */
     .figma-container {
       display: flex;
-      justify-content: center; /* Centrar el iframe horizontalmente */
-      margin: 20px 0; /* Espacio arriba y abajo */
+      justify-content: center;
+      margin: 20px 0;
     }
-
     .figma-iframe {
-      width: 375px; /* Ancho de un móvil estándar */
-      height: 667px; /* Alto de un móvil estándar */
-      border: none; /* Eliminar el borde del iframe */
-      background: transparent; /* Fondo transparente */
+      width: 375px;
+      height: 667px;
+      border: none;
+      background: transparent;
     }
-
-    /* Estilos para la modal */
     .modal {
-      display: none; /* Ocultar por defecto */
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+      background-color: rgba(0, 0, 0, 0.8);
       z-index: 1000;
       justify-content: center;
       align-items: center;
     }
-
     .modal-content {
       background-color: #141414;
       border-radius: 10px;
@@ -203,8 +189,6 @@
       max-width: 800px;
       position: relative;
     }
-
-    /* Estilos para el botón de cerrar */
     .close-modal-btn {
       position: absolute;
       top: 10px;
@@ -213,16 +197,12 @@
       color: #fff;
       cursor: pointer;
     }
-
-    /* Estilos para el iframe dentro de la modal */
     .slides-iframe {
       width: 100%;
       height: 500px;
       border: none;
       border-radius: 10px;
     }
-
-    /* Estilos para el botón de abrir la modal */
     .open-modal-btn {
       background-color: #210053;
       color: #fff;
@@ -232,16 +212,13 @@
       cursor: pointer;
       font-size: 16px;
       transition: background-color 0.3s ease;
-      margin: 20px auto; /* Centrar el botón */
-      display: block; /* Asegurar que el botón ocupe su propia línea */
+      margin: 20px auto;
+      display: block;
     }
-
     .open-modal-btn:hover {
       background-color: #fff;
       color: #210053;
     }
-
-    /* Responsividad */
     @media (max-width: 768px) {
       .sidebar {
         left: -250px;
@@ -290,10 +267,9 @@
         </div>
       </div>
 
-      <!-- Información Expandida del Proyecto -->
+      <!-- Información Expandida del Proyecto 1 -->
       <div class="expanded-info" id="expandedInfo1">
         <h3>Proyecto 1: App de Listas de Videojuegos</h3>
-        <!-- Prototipo de Figma -->
         <div class="figma-container">
           <iframe
             class="figma-iframe"
@@ -302,8 +278,19 @@
             allowtransparency="true"
           ></iframe>
         </div>
-        <!-- Botón para abrir la modal -->
         <button class="open-modal-btn">Ver Presentación</button>
+      </div>
+
+      <!-- Información Expandida del Proyecto 2 -->
+      <div class="expanded-info" id="expandedInfo2">
+        <h3>Proyecto 2: [Nombre del Proyecto]</h3>
+        <p>Aquí puedes agregar más detalles sobre el Proyecto 2.</p>
+      </div>
+
+      <!-- Información Expandida del Proyecto 3 -->
+      <div class="expanded-info" id="expandedInfo3">
+        <h3>Proyecto 3: [Nombre del Proyecto]</h3>
+        <p>Aquí puedes agregar más detalles sobre el Proyecto 3.</p>
       </div>
 
       <!-- Ventana Modal -->
