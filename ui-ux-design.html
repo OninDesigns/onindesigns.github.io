@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diseño UX/UI - Onin</title>
+  <title>UI/UX Design - Onin</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
   <style>
@@ -164,8 +164,8 @@
       margin: 20px 0;
     }
     .figma-iframe {
-      width: 375px; /* Tamaño anterior */
-      height: 667px; /* Tamaño anterior */
+      width: 375px;
+      height: 667px;
       border: none;
       background: transparent;
     }
@@ -234,8 +234,8 @@
         left: 10px;
       }
       .figma-iframe {
-        width: 100%; /* Ajuste para móviles */
-        height: 500px; /* Ajuste para móviles */
+        width: 100%;
+        height: 500px;
       }
       .modal-content {
         width: 95%;
@@ -249,39 +249,39 @@
   <div class="main-content">
     <div class="sidebar" id="sidebar">
       <div class="logo">
-        <img src="logo.png" alt="Logo Onin">
+        <img src="logo.png" alt="Onin Logo">
       </div>
-      <a href="poster-design.html">Diseño de Posters</a>
-      <a href="wallpaper-design.html">Diseño de Fondos</a>
-      <a href="logo-design.html">Diseño de Logos</a>
-      <a href="ui-ux-design.html" class="active">Diseño UX/UI</a>
-      <a href="contact.html">Contacto</a>
-      <a href="services.html">Servicios</a>
+      <a href="poster-design.html">Poster Design</a>
+      <a href="wallpaper-design.html">Wallpaper Design</a>
+      <a href="logo-design.html">Logo Design</a>
+      <a href="ui-ux-design.html" class="active">UI/UX Design</a>
+      <a href="contact.html">Contact</a>
+      <a href="services.html">Services</a>
     </div>
     <div class="content">
-      <h2>Diseño UX/UI</h2>
-      <p>Me especializo en crear diseños centrados en el usuario que sean hermosos y funcionales. Trabajo estrechamente con los clientes para comprender sus necesidades y traducirlas en experiencias de usuario intuitivas y atractivas.</p>
+      <h2>UI/UX Design</h2>
+      <p>I specialize in creating user-centered designs that are both beautiful and functional. I work closely with clients to understand their needs and translate them into intuitive and engaging user experiences.</p>
       <div class="projects">
         <div class="project-card" data-project-id="1">
-          <img src="project1.png" alt="Miniatura del Proyecto 1">
-          <h3>Proyecto 1: App de Listas de Videojuegos</h3>
-          <p>Una aplicación para organizar y seguir tu colección de videojuegos.</p>
+          <img src="project1.png" alt="Project 1 Thumbnail">
+          <h3>Project 1: Video Game Lists App</h3>
+          <p>An app to organize and track your video game collection.</p>
         </div>
         <div class="project-card" data-project-id="2">
-          <img src="project2.png" alt="Miniatura del Proyecto 2">
-          <h3>Proyecto 2: [Nombre del Proyecto]</h3>
-          <p>Breve descripción del Proyecto 2.</p>
+          <img src="project2.png" alt="Project 2 Thumbnail">
+          <h3>Project 2: [Project Name]</h3>
+          <p>Brief description of Project 2.</p>
         </div>
         <div class="project-card" data-project-id="3">
-          <img src="project3.png" alt="Miniatura del Proyecto 3">
-          <h3>Proyecto 3: [Nombre del Proyecto]</h3>
-          <p>Breve descripción del Proyecto 3.</p>
+          <img src="project3.png" alt="Project 3 Thumbnail">
+          <h3>Project 3: [Project Name]</h3>
+          <p>Brief description of Project 3.</p>
         </div>
       </div>
 
-      <!-- Información Expandida del Proyecto 1 -->
+      <!-- Expanded Info for Project 1 -->
       <div class="expanded-info" id="expandedInfo1">
-        <h3>Proyecto 1: App de Listas de Videojuegos</h3>
+        <h3>Project 1: Video Game Lists App</h3>
         <div class="figma-container">
           <iframe
             class="figma-iframe"
@@ -290,22 +290,22 @@
             allowtransparency="true"
           ></iframe>
         </div>
-        <button class="open-modal-btn">Ver Presentación</button>
+        <button class="open-modal-btn">View Presentation</button>
       </div>
 
-      <!-- Información Expandida del Proyecto 2 -->
+      <!-- Expanded Info for Project 2 -->
       <div class="expanded-info" id="expandedInfo2">
-        <h3>Proyecto 2: [Nombre del Proyecto]</h3>
-        <p>Aquí puedes agregar más detalles sobre el Proyecto 2.</p>
+        <h3>Project 2: [Project Name]</h3>
+        <p>Add more details about Project 2 here.</p>
       </div>
 
-      <!-- Información Expandida del Proyecto 3 -->
+      <!-- Expanded Info for Project 3 -->
       <div class="expanded-info" id="expandedInfo3">
-        <h3>Proyecto 3: [Nombre del Proyecto]</h3>
-        <p>Aquí puedes agregar más detalles sobre el Proyecto 3.</p>
+        <h3>Project 3: [Project Name]</h3>
+        <p>Add more details about Project 3 here.</p>
       </div>
 
-      <!-- Ventana Modal -->
+      <!-- Modal Window -->
       <div class="modal" id="slidesModal">
         <div class="modal-content">
           <span class="close-modal-btn">&times;</span>
@@ -333,7 +333,7 @@
       const modal = document.getElementById('slidesModal');
       let currentExpandedInfo = null;
 
-      // Función para mostrar/ocultar la barra lateral
+      // Toggle sidebar
       menuBtn.addEventListener('click', function() {
         if (sidebar.style.left === '0px') {
           sidebar.style.left = '-250px';
@@ -346,7 +346,7 @@
         }
       });
 
-      // Función para expandir/colapsar la información del proyecto
+      // Expand/collapse project info
       document.querySelectorAll('.project-card').forEach(card => {
         card.addEventListener('click', function() {
           const projectId = this.getAttribute('data-project-id');
@@ -365,13 +365,13 @@
             this.classList.add('active');
             currentExpandedInfo = expandedInfo;
 
-            // Scroll suave hasta la sección expandida
+            // Smooth scroll to expanded section
             expandedInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         });
       });
 
-      // Función para mostrar el botón de scroll to top
+      // Show/hide scroll-to-top button
       window.onscroll = function() {
         if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
           scrollToTopButton.classList.add('show');
@@ -380,12 +380,12 @@
         }
       };
 
-      // Función para scroll to top
+      // Scroll to top
       scrollToTopButton.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
-      // Funciones para la modal
+      // Modal functions
       document.querySelector('.open-modal-btn').addEventListener('click', openModal);
       document.querySelector('.close-modal-btn').addEventListener('click', closeModal);
 
@@ -397,7 +397,7 @@
         modal.style.display = 'none';
       }
 
-      // Cerrar la modal al hacer clic fuera del contenido
+      // Close modal when clicking outside
       window.onclick = function(event) {
         if (event.target === modal) {
           closeModal();
