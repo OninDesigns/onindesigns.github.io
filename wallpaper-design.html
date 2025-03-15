@@ -65,6 +65,7 @@
 
         .sidebar .logo img {
             width: 100%;
+            cursor: pointer; /* Añadido para indicar que es clickable */
         }
 
         .menu-btn {
@@ -145,7 +146,7 @@
 
     <div class="main-content">
         <div class="sidebar" id="sidebar">
-            <div class="logo">
+            <div class="logo" onclick="goHome()"> <!-- Añadido onclick="goHome()" -->
                 <img src="logo.png" alt="Logo Onin">
             </div>
             <a href="poster-design.html">Poster Design</a>
@@ -185,6 +186,11 @@
                 content.style.marginLeft = '250px';
                 menuBtn.innerHTML = '&#8592;';
             }
+        }
+
+        // Función para redirigir al inicio
+        function goHome() {
+            window.location.href = 'index.html';
         }
 
         document.querySelectorAll('.hover-effect').forEach(img => {
