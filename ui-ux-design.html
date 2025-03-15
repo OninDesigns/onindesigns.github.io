@@ -1,420 +1,458 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UI/UX Design - Onin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
-  <style>
-    /* Fondo dinámico */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(-45deg, #0a0a0a, #120028, #1a0a35, #0a0a0a);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: #fff;
-      overflow-x: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX Design - Onin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <style>
+        /* Fondo dinámico */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #0a0a0a, #120028, #1a0a35, #0a0a0a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    /* Resto de estilos */
-    .main-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px;
-      margin-left: 250px;
-      transition: margin-left 0.3s ease;
-    }
-    .sidebar {
-      height: 100%;
-      width: 250px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background-color: #141414; /* Cambiado a #141414 */
-      padding-top: 60px;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-      transition: left 0.3s ease;
-      z-index: 100;
-    }
-    .sidebar a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 18px;
-      color: white;
-      display: block;
-      transition: 0.3s;
-    }
-    .sidebar a:hover, .sidebar a.active {
-      background-color: #210053;
-      color: white;
-    }
-    .sidebar .logo {
-      display: block;
-      width: 100%;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .sidebar .logo img {
-      width: 100%;
-    }
-    .menu-btn {
-      font-size: 30px;
-      color: #fff;
-      padding: 0px;
-      cursor: pointer;
-      position: fixed;
-      top: 0px;
-      left: 20px;
-      z-index: 1100;
-      transition: left 0.3s ease;
-    }
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      justify-content: center;
-      margin-top: 50px;
-      width: 100%;
-    }
-    .project-card {
-      background-color: #141414; /* Cambiado a #141414 */
-      border-radius: 15px;
-      overflow: hidden;
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .project-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-    .project-card.active {
-      transform: scale(1.02);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-      border: 2px solid #210053;
-    }
-    .project-card img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-    .project-card:hover img {
-      transform: scale(1.1);
-    }
-    .project-card h3 {
-      margin: 10px 0;
-      font-size: 20px;
-      font-weight: 600;
-    }
-    .project-card p {
-      margin-bottom: 15px;
-      font-size: 14px;
-      opacity: 0.8;
-    }
-    .expanded-info {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
-      opacity: 0;
-      margin-top: 30px;
-      padding: 0 20px;
-      background-color: #141414; /* Cambiado a #141414 */
-      border-radius: 15px;
-      width: 100%;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .expanded-info.active {
-      max-height: none;
-      opacity: 1;
-      padding: 20px;
-    }
-    .scroll-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: #210053;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      padding: 15px;
-      cursor: pointer;
-      font-size: 24px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease;
-      z-index: 2000;
-    }
-    .scroll-to-top:hover {
-      background-color: #fff;
-      color: #210053;
-    }
-    .scroll-to-top.show {
-      opacity: 1;
-      visibility: visible;
-    }
-    .figma-container {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-    }
-    .figma-iframe {
-      width: 375px;
-      height: 667px;
-      border: none;
-      background: transparent;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background-color: #141414; /* Cambiado a #141414 */
-      border-radius: 10px;
-      padding: 20px;
-      width: 90%;
-      max-width: 1200px;
-      height: 80%;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .close-modal-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 24px;
-      color: #fff;
-      cursor: pointer;
-    }
-    .slides-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 10px;
-    }
-    .open-modal-btn {
-      background-color: #210053;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-      margin: 20px auto;
-      display: block;
-    }
-    .open-modal-btn:hover {
-      background-color: #fff;
-      color: #210053;
-    }
-    @media (max-width: 768px) {
-      .sidebar {
-        left: -250px;
-      }
-      .main-content {
-        margin-left: 0;
-      }
-      .menu-btn {
-        left: 10px;
-      }
-      .figma-iframe {
-        width: 100%;
-        height: 500px;
-      }
-      .modal-content {
-        width: 95%;
-        height: 90%;
-      }
-    }
-  </style>
+        .main-content {
+            display: flex;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #141414; /* Cambiado a #141414 */
+            padding-top: 60px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s ease;
+        }
+
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #210053;
+            color: white;
+        }
+
+        .sidebar .logo {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .sidebar .logo img {
+            width: 100%;
+            cursor: pointer; /* Añadido para indicar que es clickable */
+        }
+
+        .menu-btn {
+            font-size: 30px;
+            color: #fff;
+            padding: 0px;
+            cursor: pointer;
+            position: fixed;
+            top: 0px;
+            left: 20px;
+            z-index: 1100;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 30px;
+            text-align: center;
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .project-card {
+            background-color: #141414; /* Cambiado a #141414 */
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card.active {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 2px solid #210053;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .project-card h3 {
+            margin: 10px 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            margin-bottom: 15px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .expanded-info {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+            margin-top: 30px;
+            padding: 0 20px;
+            background-color: #141414; /* Cambiado a #141414 */
+            border-radius: 15px;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .expanded-info.active {
+            max-height: none;
+            opacity: 1;
+            padding: 20px;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #210053;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease;
+            z-index: 2000;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #fff;
+            color: #210053;
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .figma-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .figma-iframe {
+            width: 375px;
+            height: 667px;
+            border: none;
+            background: transparent;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #141414;
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 1200px;
+            height: 80%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .slides-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .open-modal-btn {
+            background-color: #210053;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .open-modal-btn:hover {
+            background-color: #fff;
+            color: #210053;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -250px;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .menu-btn {
+                left: 10px;
+            }
+            .figma-iframe {
+                width: 100%;
+                height: 500px;
+            }
+            .modal-content {
+                width: 95%;
+                height: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="menu-btn" id="menuBtn">&#9776;</div>
-  <div class="main-content">
-    <div class="sidebar" id="sidebar">
-      <div class="logo">
-        <img src="logo.png" alt="Onin Logo">
-      </div>
-      <a href="poster-design.html">Poster Design</a>
-      <a href="wallpaper-design.html">Wallpaper Design</a>
-      <a href="logo-design.html">Logo Design</a>
-      <a href="ui-ux-design.html" class="active">UI/UX Design</a>
-      <a href="contact.html">Contact</a>
-      <a href="services.html">Services</a>
+    <div class="menu-btn" id="menuBtn">&#9776;</div>
+
+    <div class="main-content">
+        <div class="sidebar" id="sidebar">
+            <div class="logo" onclick="goHome()"> <!-- Añadido onclick="goHome()" -->
+                <img src="logo.png" alt="Onin Logo">
+            </div>
+            <a href="poster-design.html">Poster Design</a>
+            <a href="wallpaper-design.html">Wallpaper Design</a>
+            <a href="logo-design.html">Logo Design</a>
+            <a href="ui-ux-design.html" class="active">UI/UX Design</a>
+            <a href="contact.html">Contact</a>
+            <a href="services.html">Services</a>
+        </div>
+
+        <div class="content">
+            <h2>UI/UX Design</h2>
+            <p>I specialize in creating user-centered designs that are both beautiful and functional. I work closely with clients to understand their needs and translate them into intuitive and engaging user experiences.</p>
+            <div class="projects">
+                <div class="project-card" data-project-id="1">
+                    <img src="project1.png" alt="Project 1 Thumbnail">
+                    <h3>Project 1: Video Game Lists App</h3>
+                    <p>An app to organize and track your video game collection.</p>
+                </div>
+                <div class="project-card" data-project-id="2">
+                    <img src="project2.png" alt="Project 2 Thumbnail">
+                    <h3>Project 2: [Project Name]</h3>
+                    <p>Brief description of Project 2.</p>
+                </div>
+                <div class="project-card" data-project-id="3">
+                    <img src="project3.png" alt="Project 3 Thumbnail">
+                    <h3>Project 3: [Project Name]</h3>
+                    <p>Brief description of Project 3.</p>
+                </div>
+            </div>
+
+            <!-- Expanded Info for Project 1 -->
+            <div class="expanded-info" id="expandedInfo1">
+                <h3>Project 1: Video Game Lists App</h3>
+                <div class="figma-container">
+                    <iframe
+                        class="figma-iframe"
+                        src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/i0tCNxONXejrvfQPfiJyV3/Video-Game-Lists-App-project?page-id=0%3A1&node-id=450-166&scaling=scale-down&starting-point-node-id=450%3A166"
+                        allowfullscreen
+                        allowtransparency="true"
+                    ></iframe>
+                </div>
+                <button class="open-modal-btn">View Project Research</button>
+            </div>
+
+            <!-- Expanded Info for Project 2 -->
+            <div class="expanded-info" id="expandedInfo2">
+                <h3>Project 2: [Project Name]</h3>
+                <p>Add more details about Project 2 here.</p>
+            </div>
+
+            <!-- Expanded Info for Project 3 -->
+            <div class="expanded-info" id="expandedInfo3">
+                <h3>Project 3: [Project Name]</h3>
+                <p>Add more details about Project 3 here.</p>
+            </div>
+
+            <!-- Modal Window -->
+            <div class="modal" id="slidesModal">
+                <div class="modal-content">
+                    <span class="close-modal-btn">&times;</span>
+                    <iframe 
+                        class="slides-iframe"
+                        src="https://docs.google.com/presentation/d/e/2PACX-1vTk8DkgjwiTaAHUpT5wOtICOo2nbbT1gi_WnKktuoHzRM6ueKhIje9haQfFC1dtStcpnXxlpZ11OBP9/embed?start=false&loop=false&delayms=3000" 
+                        frameborder="0"
+                        allowfullscreen="true" 
+                        mozallowfullscreen="true" 
+                        webkitallowfullscreen="true">
+                    </iframe>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="content">
-      <h2>UI/UX Design</h2>
-      <p>I specialize in creating user-centered designs that are both beautiful and functional. I work closely with clients to understand their needs and translate them into intuitive and engaging user experiences.</p>
-      <div class="projects">
-        <div class="project-card" data-project-id="1">
-          <img src="project1.png" alt="Project 1 Thumbnail">
-          <h3>Project 1: Video Game Lists App</h3>
-          <p>An app to organize and track your video game collection.</p>
-        </div>
-        <div class="project-card" data-project-id="2">
-          <img src="project2.png" alt="Project 2 Thumbnail">
-          <h3>Project 2: [Project Name]</h3>
-          <p>Brief description of Project 2.</p>
-        </div>
-        <div class="project-card" data-project-id="3">
-          <img src="project3.png" alt="Project 3 Thumbnail">
-          <h3>Project 3: [Project Name]</h3>
-          <p>Brief description of Project 3.</p>
-        </div>
-      </div>
 
-      <!-- Expanded Info for Project 1 -->
-      <div class="expanded-info" id="expandedInfo1">
-        <h3>Project 1: Video Game Lists App</h3>
-        <div class="figma-container">
-          <iframe
-            class="figma-iframe"
-            src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/i0tCNxONXejrvfQPfiJyV3/Video-Game-Lists-App-project?page-id=0%3A1&node-id=450-166&scaling=scale-down&starting-point-node-id=450%3A166"
-            allowfullscreen
-            allowtransparency="true"
-          ></iframe>
-        </div>
-        <button class="open-modal-btn">View Project Research</button>
-      </div>
+    <button class="scroll-to-top" id="scrollToTop">&#8593;</button>
 
-      <!-- Expanded Info for Project 2 -->
-      <div class="expanded-info" id="expandedInfo2">
-        <h3>Project 2: [Project Name]</h3>
-        <p>Add more details about Project 2 here.</p>
-      </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const content = document.querySelector('.main-content');
+            const scrollToTopButton = document.getElementById('scrollToTop');
+            const modal = document.getElementById('slidesModal');
+            let currentExpandedInfo = null;
 
-      <!-- Expanded Info for Project 3 -->
-      <div class="expanded-info" id="expandedInfo3">
-        <h3>Project 3: [Project Name]</h3>
-        <p>Add more details about Project 3 here.</p>
-      </div>
+            // Toggle sidebar
+            menuBtn.addEventListener('click', function() {
+                if (sidebar.style.left === '0px') {
+                    sidebar.style.left = '-250px';
+                    content.style.marginLeft = '0';
+                    menuBtn.innerHTML = '&#9776;';
+                } else {
+                    sidebar.style.left = '0';
+                    content.style.marginLeft = '250px';
+                    menuBtn.innerHTML = '&#10005;';
+                }
+            });
 
-      <!-- Modal Window -->
-      <div class="modal" id="slidesModal">
-        <div class="modal-content">
-          <span class="close-modal-btn">&times;</span>
-          <iframe 
-            class="slides-iframe"
-            src="https://docs.google.com/presentation/d/e/2PACX-1vTk8DkgjwiTaAHUpT5wOtICOo2nbbT1gi_WnKktuoHzRM6ueKhIje9haQfFC1dtStcpnXxlpZ11OBP9/embed?start=false&loop=false&delayms=3000" 
-            frameborder="0"
-            allowfullscreen="true" 
-            mozallowfullscreen="true" 
-            webkitallowfullscreen="true">
-          </iframe>
-        </div>
-      </div>
-    </div>
-  </div>
+            // Expand/collapse project info
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const projectId = this.getAttribute('data-project-id');
+                    const expandedInfo = document.getElementById('expandedInfo' + projectId);
 
-  <button class="scroll-to-top" id="scrollToTop">&#8593;</button>
+                    if (currentExpandedInfo === expandedInfo) {
+                        expandedInfo.classList.remove('active');
+                        this.classList.remove('active');
+                        currentExpandedInfo = null;
+                    } else {
+                        if (currentExpandedInfo) {
+                            currentExpandedInfo.classList.remove('active');
+                            document.querySelector(`.project-card[data-project-id="${currentExpandedInfo.id.replace('expandedInfo', '')}"]`).classList.remove('active');
+                        }
+                        expandedInfo.classList.add('active');
+                        this.classList.add('active');
+                        currentExpandedInfo = expandedInfo;
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuBtn = document.getElementById('menuBtn');
-      const sidebar = document.getElementById('sidebar');
-      const content = document.querySelector('.main-content');
-      const scrollToTopButton = document.getElementById('scrollToTop');
-      const modal = document.getElementById('slidesModal');
-      let currentExpandedInfo = null;
+                        // Smooth scroll to expanded section
+                        expandedInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
 
-      // Toggle sidebar
-      menuBtn.addEventListener('click', function() {
-        if (sidebar.style.left === '0px') {
-          sidebar.style.left = '-250px';
-          content.style.marginLeft = '0';
-          menuBtn.innerHTML = '&#9776;';
-        } else {
-          sidebar.style.left = '0';
-          content.style.marginLeft = '250px';
-          menuBtn.innerHTML = '&#10005;';
-        }
-      });
+            // Show/hide scroll-to-top button
+            window.onscroll = function() {
+                if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+            };
 
-      // Expand/collapse project info
-      document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('click', function() {
-          const projectId = this.getAttribute('data-project-id');
-          const expandedInfo = document.getElementById('expandedInfo' + projectId);
+            // Scroll to top
+            scrollToTopButton.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
 
-          if (currentExpandedInfo === expandedInfo) {
-            expandedInfo.classList.remove('active');
-            this.classList.remove('active');
-            currentExpandedInfo = null;
-          } else {
-            if (currentExpandedInfo) {
-              currentExpandedInfo.classList.remove('active');
-              document.querySelector(`.project-card[data-project-id="${currentExpandedInfo.id.replace('expandedInfo', '')}"]`).classList.remove('active');
+            // Modal functions
+            document.querySelector('.open-modal-btn').addEventListener('click', openModal);
+            document.querySelector('.close-modal-btn').addEventListener('click', closeModal);
+
+            function openModal() {
+                modal.style.display = 'flex';
             }
-            expandedInfo.classList.add('active');
-            this.classList.add('active');
-            currentExpandedInfo = expandedInfo;
 
-            // Smooth scroll to expanded section
-            expandedInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+            function closeModal() {
+                modal.style.display = 'none';
+            }
+
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            };
         });
-      });
 
-      // Show/hide scroll-to-top button
-      window.onscroll = function() {
-        if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
-          scrollToTopButton.classList.add('show');
-        } else {
-          scrollToTopButton.classList.remove('show');
+        // Función para redirigir al inicio
+        function goHome() {
+            window.location.href = 'index.html';
         }
-      };
-
-      // Scroll to top
-      scrollToTopButton.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-
-      // Modal functions
-      document.querySelector('.open-modal-btn').addEventListener('click', openModal);
-      document.querySelector('.close-modal-btn').addEventListener('click', closeModal);
-
-      function openModal() {
-        modal.style.display = 'flex';
-      }
-
-      function closeModal() {
-        modal.style.display = 'none';
-      }
-
-      // Close modal when clicking outside
-      window.onclick = function(event) {
-        if (event.target === modal) {
-          closeModal();
-        }
-      };
-    });
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </body>
 </html>
