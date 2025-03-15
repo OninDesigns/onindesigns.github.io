@@ -122,6 +122,15 @@
             background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            transform: scale(0.8); /* Animación de escala al abrir */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1); /* Escala normal al abrir */
         }
 
         .modal-content {
@@ -142,7 +151,13 @@
             border-radius: 10px;
             z-index: 1; /* La imagen por encima del recuadro */
             transform: translateX(0); /* Inicialmente en el centro */
-            transition: transform 0.5s ease; /* Animación de slide */
+            transition: transform 0.5s ease, opacity 0.5s ease; /* Animación de slide y fade */
+            cursor: zoom-in; /* Cambiar cursor al pasar sobre la imagen */
+        }
+
+        .modal img.zoomed {
+            transform: scale(1.5); /* Zoom al hacer clic */
+            cursor: zoom-out; /* Cambiar cursor al hacer zoom */
         }
 
         .modal img.active {
@@ -181,8 +196,8 @@
 
         .close {
             position: absolute;
-            top: 10px; /* Más cerca de la imagen */
-            right: 10px; /* Colocada al lado del recuadro */
+            top: 100px; /* Más cerca de la imagen */
+            right: 540px; /* Colocada al lado del recuadro */
             font-size: 40px;
             color: #fff;
             font-weight: bold;
@@ -210,11 +225,11 @@
         }
 
         .arrow.left {
-            left: 10px; /* Flecha izquierda más cerca */
+            left: 500px; /* Flecha izquierda más cerca */
         }
 
         .arrow.right {
-            right: 10px; /* Flecha derecha más cerca */
+            right: 500px; /* Flecha derecha más cerca */
         }
     </style>
 </head>
@@ -296,6 +311,7 @@
             const modalInfo = document.getElementById("modalInfo");
 
             modal.style.display = "flex";
+            modal.classList.add("active"); // Animación de escala al abrir
             modalImg.src = imgElement.src;
             modalTitle.textContent = title;
             modalDescription.textContent = description;
@@ -312,13 +328,29 @@
 
             // Actualizar el índice del poster actual
             currentPosterIndex = Array.from(posters).indexOf(imgElement);
+
+            // Añadir evento de teclado para navegación
+            document.addEventListener("keydown", handleKeyDown);
         }
 
         // Close modal
         function closeModal(event) {
             const modal = document.getElementById("myModal");
             if (event.target === modal || event.target.classList.contains("close")) {
-                modal.style.display = "none";
+                modal.classList.remove("active"); // Animación de escala al cerrar
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300); // Esperar a que termine la animación
+                document.removeEventListener("keydown", handleKeyDown); // Eliminar evento de teclado
+            }
+        }
+
+        // Función para manejar la navegación con teclado
+        function handleKeyDown(event) {
+            if (event.key === "ArrowLeft") {
+                navigatePoster(-1);
+            } else if (event.key === "ArrowRight") {
+                navigatePoster(1);
             }
         }
 
@@ -339,6 +371,12 @@
             const description = poster.getAttribute('data-description') || 'Descripción del Poster';
             openModal(poster, title, description);
         }
+
+        // Función para hacer zoom en la imagen
+        const modalImg = document.getElementById("modalImg");
+        modalImg.addEventListener("click", () => {
+            modalImg.classList.toggle("zoomed");
+        });
 
         // Función para mover la imagen 3D con el ratón
         function moveImage(event) {
