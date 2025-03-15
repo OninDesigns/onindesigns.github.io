@@ -10,11 +10,21 @@
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #232323;
+            background: linear-gradient(-45deg, #0a0a0a, #120028, #1a0a35, #0a0a0a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: #fff;
             text-align: center;
-            overflow-x: hidden; /* Evita que la página se mueva hacia la derecha cuando se hace el deslizamiento */
+            overflow-x: hidden;
+            height: 200vh; /* Aseguramos que la página sea larga para poder hacer scroll */
         }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         header {
             padding: 170px 0;
             display: flex;
@@ -23,7 +33,7 @@
             justify-content: center;
             transition: transform 1s ease-in-out, opacity 1s ease-in-out;
             opacity: 0;
-            transform: translateY(-30px); /* Empezamos con el header oculto */
+            transform: translateY(-30px);
         }
         header img {
             width: 170px;
@@ -103,7 +113,7 @@
 
         /* Animación de deslizamiento hacia la izquierda */
         .move-left {
-            transform: translateX(-100%); /* Mueve los elementos hacia la izquierda */
+            transform: translateX(-100%);
         }
 
         /* New CSS for smooth transition */
@@ -145,7 +155,7 @@
         <div class="section">
             <h3>Projects</h3>
             <ul>
-                <li><a href="poster-design.html" id="poster-link">Poster Design</a></li>
+                <li><a href="poster-design.html#poster-design-section" id="poster-link">Poster Design</a></li>
                 <li><a href="wallpaper-design.html" id="wallpaper-link">Wallpaper Design</a></li>
                 <li><a href="logo-design.html" id="logo-link">Logo Design</a></li>
                 <li><a href="ui-ux-design.html" id="ui-ux-design-link">UI / UX Design</a></li>
@@ -195,42 +205,32 @@
             }, 1000); // Se activa después de 1s
         });
 
-        // Agregar transición a los enlaces de Projects y About Me
-        const projectLink = document.getElementById('poster-link'); 
-        const aboutMeLink = document.getElementById('aboutme-link'); 
+        // Verifica si el usuario ha hecho scroll suficiente
+        window.addEventListener('scroll', function() {
+            // Verifica si el usuario ha hecho scroll hacia abajo al menos un 50% de la página
+            const scrollPosition = window.scrollY + window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
 
-        projectLink.addEventListener('click', () => {
-            animateText('Projects');
+            if (scrollPosition >= documentHeight * 0.5) {
+                // Realiza una transición suave antes de redirigir
+                document.body.style.transition = 'opacity 1s ease-in-out';
+                document.body.style.opacity = 0; // Hace desaparecer la página suavemente
+                setTimeout(() => {
+                    window.location.href = "poster-design.html"; // Redirige después de la transición
+                }, 1000); // Espera 1 segundo para que la transición se complete
+            }
         });
-
-        aboutMeLink.addEventListener('click', () => {
-            animateText('About Me');
-        });
-
-        function animateText(text) {
-            const headerElement = document.querySelector('header');
-
-            const tempElement = document.createElement('div');
-            tempElement.style.position = 'absolute';
-            tempElement.style.top = headerElement.offsetTop + 'px';
-            tempElement.style.left = headerElement.offsetLeft + 'px';
-            tempElement.style.width = headerElement.offsetWidth + 'px';
-            tempElement.style.height = headerElement.offsetHeight + 'px';
-            tempElement.style.backgroundColor = '#232323';
-            tempElement.style.color = '#fff';
-            tempElement.style.fontSize = '20px';
-            tempElement.style.fontWeight = 'bold';
-            tempElement.style.transition = 'transform 0.5s ease-in-out';
-            tempElement.textContent = text;
-
-            document.body.appendChild(tempElement);
-
-            tempElement.style.transform = 'translateX(-100%)';
+            // Al hacer scroll hacia abajo, se activa la animación de transición hacia la siguiente página
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > window.innerHeight * 0.8) {
+            document.body.style.transition = "background-color 1s ease-out";
+            document.body.style.backgroundColor = "#0a0a0a";  // Un color oscuro para la transición
 
             setTimeout(() => {
-                document.body.removeChild(tempElement);
-            }, 500); 
+                window.location.href = "poster-design.html";
+            }, 1000); // La página se redirige después de 1 segundo
         }
+    });
     </script>
 </body>
 </html>
