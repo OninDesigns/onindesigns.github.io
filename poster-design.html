@@ -189,6 +189,33 @@
             cursor: pointer;
             z-index: 2; /* La cruz por encima de todo */
         }
+
+        /* Flechas de navegación */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 2; /* Por encima de todo */
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .arrow.left {
+            left: 10px; /* Flecha izquierda más cerca */
+        }
+
+        .arrow.right {
+            right: 10px; /* Flecha derecha más cerca */
+        }
     </style>
 </head>
 <body>
@@ -212,7 +239,7 @@
         <!-- Content -->
         <div class="content">
             <div class="poster-gallery">
-                <img src="poster1.png" alt="Poster 1" onclick="openModal(this, 'Power is Dangerous - Vikings', 'Ragnar from Vikings TV Show, this poster meaning is that from the seek of power of Ragnar he looses everything: the farm represented by the forest and himself fading out.')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
+                <img src="poster1.png" alt="Poster 1" onclick="openModal(this, 'Power is Dangerous - Vikings', 'Ragnar from Vikings TV Show, this poster meaning is that from the seek of power of Ragnar he looses everything: the farm represented by la forest and himself fading out.')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
                 <img src="poster2.png" alt="Poster 2" onclick="openModal(this, 'Título del Poster 2', 'Descripción del Poster 2')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
                 <img src="poster3.jpg" alt="Poster 3" onclick="openModal(this, 'Título del Poster 3', 'Descripción del Poster 3')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
                 <img src="poster4.jpeg" alt="Poster 4" onclick="openModal(this, 'Título del Poster 4', 'Descripción del Poster 4')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
@@ -233,6 +260,9 @@
                 <p id="modalDescription"></p>
             </div>
         </div>
+        <!-- Flechas de navegación -->
+        <div class="arrow left" onclick="navigatePoster(-1)">&#10094;</div>
+        <div class="arrow right" onclick="navigatePoster(1)">&#10095;</div>
     </div>
 
     <script>
@@ -252,6 +282,10 @@
                 menuBtn.innerHTML = '&#8592;';
             }
         }
+
+        // Variables para la navegación de posters
+        let currentPosterIndex = 0;
+        const posters = document.querySelectorAll('.poster-gallery img');
 
         // Open image modal with title and description
         function openModal(imgElement, title, description) {
@@ -275,6 +309,9 @@
                 modalImg.classList.add("active");
                 modalInfo.classList.add("active");
             }, 100); // Reducido el tiempo de espera
+
+            // Actualizar el índice del poster actual
+            currentPosterIndex = Array.from(posters).indexOf(imgElement);
         }
 
         // Close modal
@@ -283,6 +320,24 @@
             if (event.target === modal || event.target.classList.contains("close")) {
                 modal.style.display = "none";
             }
+        }
+
+        // Función para navegar entre posters
+        function navigatePoster(direction) {
+            currentPosterIndex += direction;
+
+            // Circular navigation (si llega al final, vuelve al principio)
+            if (currentPosterIndex < 0) {
+                currentPosterIndex = posters.length - 1;
+            } else if (currentPosterIndex >= posters.length) {
+                currentPosterIndex = 0;
+            }
+
+            // Abrir el poster correspondiente
+            const poster = posters[currentPosterIndex];
+            const title = poster.getAttribute('data-title') || 'Título del Poster';
+            const description = poster.getAttribute('data-description') || 'Descripción del Poster';
+            openModal(poster, title, description);
         }
 
         // Función para mover la imagen 3D con el ratón
