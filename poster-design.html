@@ -29,14 +29,14 @@
             transition: margin-left 0.3s ease;
         }
 
-        /* Sidebar siempre visible pero puede colapsarse */
+        /* Sidebar */
         .sidebar {
             height: 100%;
             width: 250px;
             position: fixed;
             top: 0;
-            left: 0; /* Siempre visible */
-            background-color: #141414; /* Cambiado a #141414 */
+            left: 0;
+            background-color: #141414;
             padding-top: 60px;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
             transition: left 0.3s ease;
@@ -51,20 +51,23 @@
             transition: 0.3s;
         }
 
-        /* Efecto de hover y clase activa */
         .sidebar a:hover, .sidebar a.active {
             background-color: #210053;
             color: white;
         }
 
-        /* Logo */
-        .sidebar .logo img {
-            max-width: 100%;
-            cursor: pointer;
-            transition: none !important; /* Elimino el efecto hover completamente con !important */
+        .sidebar .logo {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        /* Menu Button */
+        .sidebar .logo img {
+            width: 100%;
+            cursor: pointer;
+        }
+
         .menu-btn {
             font-size: 30px;
             color: #fff;
@@ -74,15 +77,13 @@
             top: 0px;
             left: 20px;
             z-index: 1100;
-            transition: left 0.3s ease;
         }
 
-        /* Content */
         .content {
             flex-grow: 1;
             padding: 30px;
             text-align: center;
-            margin-left: 250px; /* El contenido comienza desplazado a la derecha */
+            margin-left: 250px;
             transition: margin-left 0.3s ease;
         }
 
@@ -118,26 +119,75 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
             justify-content: center;
             align-items: center;
         }
 
-        .modal img {
-            max-width: 90%;
-            max-height: 80%;
-            object-fit: contain;
+        .modal-content {
+            display: flex;
+            align-items: center; /* Alinear imagen y recuadro verticalmente */
+            background: transparent;
             border-radius: 10px;
+            padding: 20px;
+            max-width: 90%; /* Aumentar el ancho máximo del modal */
+            max-height: 90%;
+            position: relative;
+        }
+
+        .modal img {
+            width: 450px; /* Tamaño más grande para la imagen */
+            height: 675px; /* Tamaño más grande para la imagen */
+            object-fit: cover; /* Ajustar la imagen al contenedor */
+            border-radius: 10px;
+            z-index: 1; /* La imagen por encima del recuadro */
+            transform: translateX(0); /* Inicialmente en el centro */
+            transition: transform 0.5s ease; /* Animación de slide */
+        }
+
+        .modal img.active {
+            transform: translateX(-175px); /* Desplazamiento a la izquierda */
+        }
+
+        .modal-info {
+            padding: 20px;
+            width: 350px; /* Ancho más grande para el recuadro */
+            height: 675px; /* Misma altura que la imagen */
+            color: #fff;
+            opacity: 0;
+            transform: translateX(0); /* Inicialmente en el centro */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            background-color: #141414;
+            border-radius: 10px;
+            margin-left: -350px; /* Posición inicial detrás de la imagen */
+            overflow: hidden;
+            z-index: 0; /* El recuadro por debajo de la imagen */
+        }
+
+        .modal-info.active {
+            opacity: 1;
+            transform: translateX(175px); /* Desplazamiento a la derecha */
+        }
+
+        .modal-info h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .modal-info p {
+            font-size: 16px;
+            line-height: 1.5;
         }
 
         .close {
             position: absolute;
-            top: 20px;
-            right: 30px;
+            top: 10px; /* Más cerca de la imagen */
+            right: 10px; /* Colocada al lado del recuadro */
             font-size: 40px;
             color: #fff;
             font-weight: bold;
             cursor: pointer;
+            z-index: 2; /* La cruz por encima de todo */
         }
     </style>
 </head>
@@ -162,13 +212,13 @@
         <!-- Content -->
         <div class="content">
             <div class="poster-gallery">
-                <img src="poster1.png" alt="Poster 1" onclick="openModal(this)" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
-                <img src="poster2.png" alt="Poster 2" onclick="openModal(this)" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
-                <img src="poster3.jpg" alt="Poster 3" onclick="openModal(this)" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
-                <img src="poster4.jpeg" alt="Poster 4" onclick="openModal(this)" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
-                <img src="poster5.jpeg" alt="Poster 5" onclick="openModal(this)" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
-                <img src="poster6.jpeg" alt="Poster 6" onclick="openModal(this)" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
-                <img src="poster7.jpg" alt="Poster 7" onclick="openModal(this)" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
+                <img src="poster1.png" alt="Poster 1" onclick="openModal(this, 'Power is Dangerous - Vikings', 'Ragnar from Vikings TV Show, this poster meaning is that from the seek of power of Ragnar he looses everything: the farm represented by the forest and himself fading out.')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
+                <img src="poster2.png" alt="Poster 2" onclick="openModal(this, 'Título del Poster 2', 'Descripción del Poster 2')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
+                <img src="poster3.jpg" alt="Poster 3" onclick="openModal(this, 'Título del Poster 3', 'Descripción del Poster 3')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
+                <img src="poster4.jpeg" alt="Poster 4" onclick="openModal(this, 'Título del Poster 4', 'Descripción del Poster 4')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
+                <img src="poster5.jpeg" alt="Poster 5" onclick="openModal(this, 'Título del Poster 5', 'Descripción del Poster 5')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
+                <img src="poster6.jpeg" alt="Poster 6" onclick="openModal(this, 'Título del Poster 6', 'Descripción del Poster 6')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
+                <img src="poster7.jpg" alt="Poster 7" onclick="openModal(this, 'Título del Poster 7', 'Descripción del Poster 7')" onmousemove="moveImage(event)" onmouseout="resetImage(event)">
             </div>
         </div>
     </div>
@@ -176,7 +226,13 @@
     <!-- Modal (for image preview) -->
     <div class="modal" id="myModal" onclick="closeModal(event)">
         <span class="close" onclick="closeModal()">&times;</span>
-        <img id="modalImg">
+        <div class="modal-content">
+            <img id="modalImg">
+            <div class="modal-info" id="modalInfo">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -187,29 +243,44 @@
             const menuBtn = document.getElementById('menuBtn');
             const currentLeft = sidebar.style.left;
             if (currentLeft === '0px') {
-                sidebar.style.left = '-250px'; // Sidebar oculto
-                content.style.marginLeft = '0'; // El contenido se ajusta
-                menuBtn.innerHTML = '&#9776;'; // Cambiar a hamburguesa
+                sidebar.style.left = '-250px';
+                content.style.marginLeft = '0';
+                menuBtn.innerHTML = '&#9776;';
             } else {
-                sidebar.style.left = '0'; // Sidebar visible
-                content.style.marginLeft = '250px'; // El contenido se desplaza
-                menuBtn.innerHTML = '&#8592;'; // Cambiar a flecha
+                sidebar.style.left = '0';
+                content.style.marginLeft = '250px';
+                menuBtn.innerHTML = '&#8592;';
             }
         }
 
-        // Open image modal
-        function openModal(imgElement) {
+        // Open image modal with title and description
+        function openModal(imgElement, title, description) {
             const modal = document.getElementById("myModal");
             const modalImg = document.getElementById("modalImg");
+            const modalTitle = document.getElementById("modalTitle");
+            const modalDescription = document.getElementById("modalDescription");
+            const modalInfo = document.getElementById("modalInfo");
+
             modal.style.display = "flex";
             modalImg.src = imgElement.src;
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+
+            // Inicialmente ocultamos el recuadro de información y la imagen
+            modalInfo.classList.remove("active");
+            modalImg.classList.remove("active");
+
+            // Mostramos la imagen y el recuadro de información después de 0.5 segundos
+            setTimeout(() => {
+                modalImg.classList.add("active");
+                modalInfo.classList.add("active");
+            }, 100); // Reducido el tiempo de espera
         }
 
         // Close modal
         function closeModal(event) {
             const modal = document.getElementById("myModal");
-            // Verifica que el clic sea fuera de la imagen y no de la X
-            if (event.target === modal) {
+            if (event.target === modal || event.target.classList.contains("close")) {
                 modal.style.display = "none";
             }
         }
@@ -224,17 +295,18 @@
             const centerY = rect.height / 2;
             const deltaX = (offsetX - centerX) / centerX;
             const deltaY = (offsetY - centerY) / centerY;
-            image.style.transition = "none";  // Desactivamos la transición para que el efecto sea instantáneo
+            image.style.transition = "none";
             image.style.transform = `perspective(1000px) rotateX(${deltaY * 10}deg) rotateY(${deltaX * 10}deg)`;
         }
 
         // Función para resetear la posición de la imagen cuando el ratón sale
         function resetImage(event) {
             const image = event.currentTarget;
-            image.style.transition = "transform 0.3s ease";  // Añadimos la transición para que vuelva suavemente
-            image.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";  // Vuelve a la posición original
+            image.style.transition = "transform 0.3s ease";
+            image.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
         }
 
+        // Función para redirigir al inicio
         function goHome() {
             window.location.href = 'index.html';
         }
