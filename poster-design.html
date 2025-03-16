@@ -151,13 +151,8 @@
             border-radius: 10px;
             z-index: 1; /* La imagen por encima del recuadro */
             transform: translateX(0); /* Inicialmente en el centro */
-            transition: transform 0.5s ease, opacity 0.5s ease; /* Animación de slide y fade */
-            cursor: zoom-in; /* Cambiar cursor al pasar sobre la imagen */
-        }
-
-        .modal img.zoomed {
-            transform: scale(1.5); /* Zoom al hacer clic */
-            cursor: zoom-out; /* Cambiar cursor al hacer zoom */
+            transition: transform 0.3s ease; /* Animación de desplazamiento */
+            cursor: pointer; /* Cambiar cursor al pasar sobre la imagen */
         }
 
         .modal img.active {
@@ -269,7 +264,7 @@
     <div class="modal" id="myModal" onclick="closeModal(event)">
         <span class="close" onclick="closeModal()">&times;</span>
         <div class="modal-content">
-            <img id="modalImg">
+            <img id="modalImg" onclick="openImageInNewTab(this.src)">
             <div class="modal-info" id="modalInfo">
                 <h3 id="modalTitle"></h3>
                 <p id="modalDescription"></p>
@@ -372,11 +367,10 @@
             openModal(poster, title, description);
         }
 
-        // Función para hacer zoom en la imagen
-        const modalImg = document.getElementById("modalImg");
-        modalImg.addEventListener("click", () => {
-            modalImg.classList.toggle("zoomed");
-        });
+        // Función para abrir la imagen en una nueva pestaña
+        function openImageInNewTab(imageSrc) {
+            window.open(imageSrc, '_blank');
+        }
 
         // Función para mover la imagen 3D con el ratón
         function moveImage(event) {
