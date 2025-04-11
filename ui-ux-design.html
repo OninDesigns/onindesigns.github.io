@@ -204,66 +204,6 @@
             background: transparent;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #141414;
-            border-radius: 10px;
-            padding: 20px;
-            width: 90%;
-            max-width: 1200px;
-            height: 80%;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .close-modal-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .slides-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 10px;
-        }
-
-        .open-modal-btn {
-            background-color: #210053;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-            margin: 20px auto;
-            display: block;
-        }
-
-        .open-modal-btn:hover {
-            background-color: #fff;
-            color: #210053;
-        }
-
         @media (max-width: 768px) {
             .sidebar {
                 left: -250px;
@@ -277,10 +217,6 @@
             .figma-iframe {
                 width: 100%;
                 height: 500px;
-            }
-            .modal-content {
-                width: 95%;
-                height: 90%;
             }
         }
     </style>
@@ -306,17 +242,17 @@
             <p>I specialize in creating user-centered designs that are both beautiful and functional. I work closely with clients to understand their needs and translate them into intuitive and engaging user experiences.</p>
             <div class="projects">
                 <div class="project-card" data-project-id="1">
-                    <img src="project1.png" alt="Project 1 Thumbnail">
+                    <img src="project1.png" alt="Video Game Lists App">
                     <h3>Project 1: Video Game Lists App</h3>
                     <p>An app to organize and track your video game collection.</p>
                 </div>
                 <div class="project-card" data-project-id="2">
-                    <img src="project2.png" alt="Healthy Diet App Thumbnail">
+                    <img src="project2.png" alt="Healthy Diet App">
                     <h3>Project 2: Healthy Diet App</h3>
                     <p>App for people with health conditions who need specialized diet care.</p>
                 </div>
                 <div class="project-card" data-project-id="3">
-                    <img src="project3.png" alt="Project 3 Thumbnail">
+                    <img src="project3.png" alt="Project 3">
                     <h3>Project 3: [Project Name]</h3>
                     <p>Brief description of Project 3.</p>
                 </div>
@@ -330,46 +266,27 @@
                         class="figma-iframe"
                         src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/i0tCNxONXejrvfQPfiJyV3/Video-Game-Lists-App-project?page-id=0%3A1&node-id=450-166&scaling=scale-down&starting-point-node-id=450%3A166"
                         allowfullscreen
-                        allowtransparency="true"
                     ></iframe>
                 </div>
-                <button class="open-modal-btn">View Project Research</button>
             </div>
 
             <!-- Expanded Info for Project 2 -->
             <div class="expanded-info" id="expandedInfo2">
                 <h3>Project 2: Healthy Diet App</h3>
-                <p>A specialized application designed to help people with specific health conditions maintain a healthy diet tailored to their needs. The app provides personalized meal plans, nutritional tracking, and health monitoring features.</p>
+                <p>A specialized application designed to help people with specific health conditions maintain a healthy diet tailored to their needs.</p>
                 <div class="figma-container">
                     <iframe
                         class="figma-iframe"
                         src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=261%3A265&node-id=925-1182&p=f&viewport=115%2C448%2C0.14&t=myknPD2j6eLVniPQ-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=925%3A1182"
                         allowfullscreen
-                        allowtransparency="true"
                     ></iframe>
                 </div>
-                <button class="open-modal-btn">View Project Research</button>
             </div>
 
             <!-- Expanded Info for Project 3 -->
             <div class="expanded-info" id="expandedInfo3">
                 <h3>Project 3: [Project Name]</h3>
                 <p>Add more details about Project 3 here.</p>
-            </div>
-
-            <!-- Modal Window -->
-            <div class="modal" id="slidesModal">
-                <div class="modal-content">
-                    <span class="close-modal-btn">&times;</span>
-                    <iframe 
-                        class="slides-iframe"
-                        src="https://docs.google.com/presentation/d/e/2PACX-1vTk8DkgjwiTaAHUpT5wOtICOo2nbbT1gi_WnKktuoHzRM6ueKhIje9haQfFC1dtStcpnXxlpZ11OBP9/embed?start=false&loop=false&delayms=3000" 
-                        frameborder="0"
-                        allowfullscreen="true" 
-                        mozallowfullscreen="true" 
-                        webkitallowfullscreen="true">
-                    </iframe>
-                </div>
             </div>
         </div>
     </div>
@@ -382,7 +299,6 @@
             const sidebar = document.getElementById('sidebar');
             const content = document.querySelector('.main-content');
             const scrollToTopButton = document.getElementById('scrollToTop');
-            const modal = document.getElementById('slidesModal');
             let currentExpandedInfo = null;
 
             // Toggle sidebar
@@ -436,25 +352,6 @@
             scrollToTopButton.addEventListener('click', function() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-
-            // Modal functions
-            document.querySelector('.open-modal-btn').addEventListener('click', openModal);
-            document.querySelector('.close-modal-btn').addEventListener('click', closeModal);
-
-            function openModal() {
-                modal.style.display = 'flex';
-            }
-
-            function closeModal() {
-                modal.style.display = 'none';
-            }
-
-            // Close modal when clicking outside
-            window.onclick = function(event) {
-                if (event.target === modal) {
-                    closeModal();
-                }
-            };
         });
 
         // Función para redirigir al inicio
