@@ -201,18 +201,29 @@
             background: transparent;
         }
 
-        /* Estilos específicos para el proyecto 3 (Fortnite) */
+        /* Estilo especial para Fortnite */
         #expandedInfo3 .figma-container {
             width: 100%;
-            max-width: 900px;
-            margin: 30px auto;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            background: transparent;
         }
 
         #expandedInfo3 .figma-iframe {
             width: 100%;
-            height: 500px;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            height: 80vh;
+            min-height: 600px;
+            border: none;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        #expandedInfo3 {
+            padding: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
         }
 
         @media (max-width: 768px) {
@@ -230,7 +241,8 @@
                 height: 500px;
             }
             #expandedInfo3 .figma-iframe {
-                height: 300px;
+                height: 60vh;
+                min-height: 400px;
             }
         }
     </style>
@@ -291,7 +303,6 @@
 
             <div class="expanded-info" id="expandedInfo3">
                 <h3>Fortnite Locker Redesign</h3>
-                <p>Complete redesign of Fortnite's locker interface focusing on improved navigation and user experience.</p>
                 <div class="figma-container">
                     <iframe class="figma-iframe" src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=0%3A1&node-id=9-171&p=f&viewport=354%2C385%2C0.05&t=gHFTvf62G6aVC85I-1&scaling=contain&content-scaling=fixed" allowfullscreen></iframe>
                 </div>
@@ -366,5 +377,7 @@
             window.location.href = 'index.html';
         }
     </script>
+</body>
+</html>
 </body>
 </html>
