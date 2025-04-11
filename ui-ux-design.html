@@ -37,7 +37,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #141414; /* Cambiado a #141414 */
+            background-color: #141414;
             padding-top: 60px;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
             transition: left 0.3s ease;
@@ -66,7 +66,7 @@
 
         .sidebar .logo img {
             width: 100%;
-            cursor: pointer; /* Añadido para indicar que es clickable */
+            cursor: pointer;
         }
 
         .menu-btn {
@@ -98,7 +98,7 @@
         }
 
         .project-card {
-            background-color: #141414; /* Cambiado a #141414 */
+            background-color: #141414;
             border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
@@ -152,7 +152,7 @@
             opacity: 0;
             margin-top: 30px;
             padding: 0 20px;
-            background-color: #141414; /* Cambiado a #141414 */
+            background-color: #141414;
             border-radius: 15px;
             width: 100%;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -290,7 +290,7 @@
 
     <div class="main-content">
         <div class="sidebar" id="sidebar">
-            <div class="logo" onclick="goHome()"> <!-- Añadido onclick="goHome()" -->
+            <div class="logo" onclick="goHome()">
                 <img src="logo.png" alt="Onin Logo">
             </div>
             <a href="poster-design.html">Poster Design</a>
@@ -311,9 +311,9 @@
                     <p>An app to organize and track your video game collection.</p>
                 </div>
                 <div class="project-card" data-project-id="2">
-                    <img src="project2.png" alt="Project 2 Thumbnail">
-                    <h3>Project 2: [Project Name]</h3>
-                    <p>Brief description of Project 2.</p>
+                    <img src="project2.png" alt="Healthy Diet App Thumbnail">
+                    <h3>Project 2: Healthy Diet App</h3>
+                    <p>App for people with health conditions who need specialized diet care.</p>
                 </div>
                 <div class="project-card" data-project-id="3">
                     <img src="project3.png" alt="Project 3 Thumbnail">
@@ -338,8 +338,17 @@
 
             <!-- Expanded Info for Project 2 -->
             <div class="expanded-info" id="expandedInfo2">
-                <h3>Project 2: [Project Name]</h3>
-                <p>Add more details about Project 2 here.</p>
+                <h3>Project 2: Healthy Diet App</h3>
+                <p>A specialized application designed to help people with specific health conditions maintain a healthy diet tailored to their needs. The app provides personalized meal plans, nutritional tracking, and health monitoring features.</p>
+                <div class="figma-container">
+                    <iframe
+                        class="figma-iframe"
+                        src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=261%3A265&node-id=925-1182&p=f&viewport=115%2C448%2C0.14&t=myknPD2j6eLVniPQ-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=925%3A1182"
+                        allowfullscreen
+                        allowtransparency="true"
+                    ></iframe>
+                </div>
+                <button class="open-modal-btn">View Project Research</button>
             </div>
 
             <!-- Expanded Info for Project 3 -->
