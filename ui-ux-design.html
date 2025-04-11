@@ -6,7 +6,6 @@
     <title>UI/UX Design - Onin</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Main Styles */
         body {
             margin: 0;
             padding: 0;
@@ -24,69 +23,213 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Layout */
         .main-content {
             display: flex;
             transition: margin-left 0.3s ease;
         }
 
         .sidebar {
+            height: 100%;
             width: 250px;
             position: fixed;
-            height: 100vh;
+            top: 0;
+            left: 0;
             background-color: #141414;
             padding-top: 60px;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
             transition: left 0.3s ease;
         }
 
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #210053;
+            color: white;
+        }
+
+        .sidebar .logo {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .sidebar .logo img {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .menu-btn {
+            font-size: 30px;
+            color: #fff;
+            padding: 0px;
+            cursor: pointer;
+            position: fixed;
+            top: 0px;
+            left: 20px;
+            z-index: 1100;
+        }
+
         .content {
             flex-grow: 1;
             padding: 30px;
+            text-align: center;
             margin-left: 250px;
             transition: margin-left 0.3s ease;
         }
 
-        /* Projects Grid */
         .projects {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
+            justify-content: center;
             margin-top: 50px;
+            width: 100%;
         }
 
         .project-card {
             background-color: #141414;
             border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s ease;
             cursor: pointer;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         .project-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card.active {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 2px solid #210053;
         }
 
         .project-card img {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
 
-        .project-info {
+        .project-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .project-card h3 {
+            margin: 10px 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            margin-bottom: 15px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .expanded-info {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+            margin-top: 30px;
+            padding: 0 20px;
+            background-color: #141414;
+            border-radius: 15px;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .expanded-info.active {
+            max-height: none;
+            opacity: 1;
+            padding: 20px;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #210053;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
             padding: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease;
+            z-index: 2000;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #fff;
+            color: #210053;
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .figma-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .figma-iframe {
+            width: 375px;
+            height: 667px;
+            border: none;
+            background: transparent;
+        }
+
+        /* Current Locker Image Styles */
+        .current-locker-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #141414;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .current-locker-img {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
+            border-radius: 5px;
+            display: block;
+            margin: 0 auto;
         }
 
         /* Comparison Section */
         .comparison-section {
-            background: rgba(30, 30, 30, 0.8);
+            background: rgba(20, 20, 20, 0.8);
             border-radius: 12px;
             padding: 25px;
             margin: 40px 0;
         }
 
-        .comparison-tabs {
+        .comparison-header {
             display: flex;
             justify-content: center;
             gap: 15px;
@@ -98,6 +241,9 @@
             background: #210053;
             border: none;
             color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
             cursor: pointer;
             border-radius: 6px;
             transition: all 0.3s ease;
@@ -112,101 +258,50 @@
             font-weight: 600;
         }
 
-        .comparison-view {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .comparison-item {
-            flex: 1;
-            min-width: 300px;
-            background: #1a1a1a;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .comparison-label {
-            padding: 15px;
-            text-align: center;
-            background: linear-gradient(90deg, #FF4454, #18A0FB);
-            color: white;
-            font-weight: 600;
-        }
-
-        /* Prototype Container */
-        .prototype-container {
-            width: 100%;
-            height: 600px;
-            border: none;
-        }
-
-        /* Image Container */
-        .image-container {
-            width: 100%;
+        .improvements-section {
+            background: rgba(33, 0, 83, 0.3);
             padding: 20px;
-            background: #1a1a1a;
-            text-align: center;
-            height: 580px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: left;
         }
 
-        .current-locker-img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 5px;
+        .improvements-section h3 {
+            color: #FF4454;
+            margin-top: 0;
         }
 
-        /* Responsive Adjustments */
+        .improvements-section ul {
+            padding-left: 20px;
+        }
+
+        .improvements-section li {
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
         @media (max-width: 768px) {
-            .content {
-                margin-left: 0;
-                padding: 20px;
-            }
-            
             .sidebar {
                 left: -250px;
             }
-            
-            .prototype-container {
-                height: 400px;
+            .main-content {
+                margin-left: 0;
             }
-            
-            .image-container {
-                height: 380px;
+            .menu-btn {
+                left: 10px;
             }
-        }
-
-        /* Scroll to Top Button */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #210053;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .scroll-top.visible {
-            opacity: 1;
+            .figma-iframe {
+                width: 100%;
+                height: 500px;
+            }
+            .current-locker-img {
+                max-height: 400px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="menu-btn" id="menuBtn">☰</div>
+    <div class="menu-btn" id="menuBtn">&#9776;</div>
 
     <div class="main-content">
         <div class="sidebar" id="sidebar">
@@ -222,130 +317,160 @@
         </div>
 
         <div class="content">
-            <h1>UI/UX Design Portfolio</h1>
-            <p>Professional interface designs focused on user experience</p>
+            <h2>UI/UX Design</h2>
+            <p>I specialize in creating user-centered designs that are both beautiful and functional.</p>
             
             <div class="projects">
                 <div class="project-card" data-project-id="1">
-                    <img src="project1.png" alt="Video Game App">
-                    <div class="project-info">
-                        <h3>Video Game Library</h3>
-                        <p>Collection management system</p>
-                    </div>
+                    <img src="project1.png" alt="Video Game Lists App">
+                    <h3>Video Game Lists App</h3>
+                    <p>Organize and track your video game collection</p>
                 </div>
                 
                 <div class="project-card" data-project-id="2">
-                    <img src="project2.png" alt="Health App">
-                    <div class="project-info">
-                        <h3>Nutrition Tracker</h3>
-                        <p>Diet planning application</p>
-                    </div>
+                    <img src="project2.png" alt="Healthy Diet App">
+                    <h3>Healthy Diet App</h3>
+                    <p>Specialized diet care for health conditions</p>
                 </div>
                 
                 <div class="project-card" data-project-id="3">
-                    <img src="project3.png" alt="Fortnite Redesign">
-                    <div class="project-info">
-                        <h3>Fortnite Locker</h3>
-                        <p>UI/UX redesign concept</p>
-                    </div>
+                    <img src="project3.png" alt="Fortnite Locker Redesign">
+                    <h3>Fortnite Locker Redesign</h3>
+                    <p>UI/UX overhaul of the locker system</p>
                 </div>
             </div>
 
-            <!-- Fortnite Project Expanded View -->
+            <div class="expanded-info" id="expandedInfo1">
+                <h3>Video Game Lists App</h3>
+                <div class="figma-container">
+                    <iframe class="figma-iframe" src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/i0tCNxONXejrvfQPfiJyV3/Video-Game-Lists-App-project?page-id=0%3A1&node-id=450-166&scaling=scale-down&starting-point-node-id=450%3A166" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="expanded-info" id="expandedInfo2">
+                <h3>Healthy Diet App</h3>
+                <div class="figma-container">
+                    <iframe class="figma-iframe" src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=261%3A265&node-id=925-1182&p=f&viewport=115%2C448%2C0.14&t=myknPD2j6eLVniPQ-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=925%3A1182" allowfullscreen></iframe>
+                </div>
+            </div>
+
             <div class="expanded-info" id="expandedInfo3">
                 <h2>Fortnite Locker Redesign</h2>
-                <p>Enhanced customization interface for better user experience</p>
+                <p>User-focused redesign with enhanced customization</p>
                 
+                <!-- Comparison Section -->
                 <div class="comparison-section">
-                    <div class="comparison-tabs">
-                        <button class="comparison-tab active" onclick="showVersion('redesign')">MY REDESIGN</button>
-                        <button class="comparison-tab" onclick="showVersion('original')">ORIGINAL UI</button>
+                    <div class="comparison-header">
+                        <button class="comparison-tab active" onclick="showComparison('redesign')">MY REDESIGN</button>
+                        <button class="comparison-tab" onclick="showComparison('original')">CURRENT LOCKER</button>
                     </div>
                     
-                    <div class="comparison-view">
-                        <!-- Redesign Prototype -->
-                        <div class="comparison-item" id="redesign-view">
-                            <div class="comparison-label">REDESIGN PROTOTYPE</div>
-                            <iframe class="prototype-container"
-                                src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=0%3A1&node-id=9-171&hide-ui=1&scaling=contain&starting-point-node-id=9%3A171&show-proto-sidebar=0" 
-                                allowfullscreen>
+                    <!-- Your Redesign -->
+                    <div id="redesign-comparison">
+                        <div class="figma-container">
+                            <iframe class="figma-iframe" 
+                                    src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=0%3A1&node-id=9-171&hide-ui=1&scaling=contain&starting-point-node-id=9%3A171&show-proto-sidebar=0" 
+                                    allowfullscreen>
                             </iframe>
                         </div>
-                        
-                        <!-- Original UI -->
-                        <div class="comparison-item" id="original-view" style="display:none">
-                            <div class="comparison-label">CURRENT LOCKER (v33.00)</div>
-                            <div class="image-container">
-                                <img src="fortnite3.png" 
-                                     alt="Current Fortnite Locker"
-                                     class="current-locker-img">
-                            </div>
+                    </div>
+                    
+                    <!-- Current Locker -->
+                    <div id="original-comparison" style="display:none">
+                        <div class="current-locker-container">
+                            <img class="current-locker-img" 
+                                 src="fortnite3.png" 
+                                 alt="Current Fortnite Locker UI">
                         </div>
                     </div>
                 </div>
 
-                <div class="design-analysis">
-                    <h3>Key Design Improvements</h3>
+                <!-- Improvements Section -->
+                <div class="improvements-section">
+                    <h3>Key Improvements in My Design</h3>
                     <ul>
-                        <li><strong>Streamlined Navigation:</strong> Reduced clicks to equip items by 40%</li>
-                        <li><strong>Enhanced Visual Hierarchy:</strong> Important elements stand out more clearly</li>
-                        <li><strong>Quick-Preview:</strong> 360° view of skins before selection</li>
-                        <li><strong>Smart Organization:</strong> Improved filtering and categorization</li>
-                        <li><strong>Loadout Presets:</strong> Save and switch between custom combinations</li>
+                        <li><strong>Optimized workflow:</strong> 40% fewer clicks to equip items</li>
+                        <li><strong>Smart search:</strong> Filter by type, rarity and season</li>
+                        <li><strong>360° preview:</strong> Rotate skins before equipping</li>
+                        <li><strong>Better organization:</strong> Enhanced favorites system</li>
+                        <li><strong>Advanced customization:</strong> Mix clothing from different skins</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
+    <button class="scroll-to-top" id="scrollToTop">&#8593;</button>
 
     <script>
-        // Toggle sidebar
-        document.getElementById('menuBtn').addEventListener('click', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menuBtn');
             const sidebar = document.getElementById('sidebar');
             const content = document.querySelector('.content');
-            
-            if (sidebar.style.left === '0px' || !sidebar.style.left) {
-                sidebar.style.left = '-250px';
-                content.style.marginLeft = '0';
-                this.innerHTML = '☰';
-            } else {
-                sidebar.style.left = '0';
-                content.style.marginLeft = '250px';
-                this.innerHTML = '✕';
-            }
-        });
+            const scrollToTopButton = document.getElementById('scrollToTop');
+            let currentExpandedInfo = null;
 
-        // Project expansion
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const projectId = this.getAttribute('data-project-id');
-                const expandedInfo = document.getElementById('expandedInfo' + projectId);
-                
-                // Close all first
-                document.querySelectorAll('.expanded-info').forEach(info => {
-                    if (info !== expandedInfo) {
-                        info.style.display = 'none';
-                    }
-                });
-                
-                // Toggle current
-                expandedInfo.style.display = 
-                    expandedInfo.style.display === 'block' ? 'none' : 'block';
-                
-                // Scroll to expanded section
-                if (expandedInfo.style.display === 'block') {
-                    expandedInfo.scrollIntoView({ behavior: 'smooth' });
+            // Toggle sidebar
+            menuBtn.addEventListener('click', function() {
+                if (sidebar.style.left === '0px') {
+                    sidebar.style.left = '-250px';
+                    content.style.marginLeft = '0';
+                    menuBtn.innerHTML = '&#9776;';
+                } else {
+                    sidebar.style.left = '0';
+                    content.style.marginLeft = '250px';
+                    menuBtn.innerHTML = '&#10005;';
                 }
             });
+
+            // Expand/collapse project info
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const projectId = this.getAttribute('data-project-id');
+                    const expandedInfo = document.getElementById('expandedInfo' + projectId);
+
+                    if (currentExpandedInfo === expandedInfo) {
+                        expandedInfo.classList.remove('active');
+                        this.classList.remove('active');
+                        currentExpandedInfo = null;
+                    } else {
+                        if (currentExpandedInfo) {
+                            currentExpandedInfo.classList.remove('active');
+                            document.querySelector(`.project-card[data-project-id="${currentExpandedInfo.id.replace('expandedInfo', '')}"]`).classList.remove('active');
+                        }
+                        expandedInfo.classList.add('active');
+                        this.classList.add('active');
+                        currentExpandedInfo = expandedInfo;
+
+                        // Smooth scroll to expanded section
+                        expandedInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Show/hide scroll-to-top button
+            window.onscroll = function() {
+                if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+            };
+
+            // Scroll to top
+            scrollToTopButton.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Initialize comparison
+            showComparison('redesign');
         });
 
-        // Comparison toggle
-        function showVersion(version) {
-            document.getElementById('redesign-view').style.display = 
+        // Comparison function
+        function showComparison(version) {
+            document.getElementById('redesign-comparison').style.display = 
                 version === 'redesign' ? 'block' : 'none';
-            document.getElementById('original-view').style.display = 
+            document.getElementById('original-comparison').style.display = 
                 version === 'original' ? 'block' : 'none';
             
             // Update active tab
@@ -355,24 +480,9 @@
             });
         }
 
-        // Scroll to top button
-        window.addEventListener('scroll', function() {
-            const scrollBtn = document.getElementById('scrollTopBtn');
-            if (window.scrollY > 300) {
-                scrollBtn.classList.add('visible');
-            } else {
-                scrollBtn.classList.remove('visible');
-            }
-        });
-
         function goHome() {
             window.location.href = 'index.html';
         }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            showVersion('redesign');
-        });
     </script>
 </body>
 </html>
