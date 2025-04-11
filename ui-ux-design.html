@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -201,7 +201,7 @@
             background: transparent;
         }
 
-        /* --- NUEVA SECCIÓN DE COMPARATIVA --- */
+        /* Comparison Section */
         .comparison-section {
             background: rgba(20, 20, 20, 0.8);
             border-radius: 12px;
@@ -271,6 +271,14 @@
             background: transparent;
         }
 
+        .current-locker-img {
+            width: 100%;
+            height: 600px;
+            object-fit: contain;
+            background: #1a1a1a;
+            padding: 20px;
+        }
+
         .improvements-section {
             background: rgba(33, 0, 83, 0.3);
             padding: 20px;
@@ -294,7 +302,7 @@
         }
 
         @media (max-width: 1200px) {
-            .comparison-figma {
+            .comparison-figma, .current-locker-img {
                 height: 500px;
             }
         }
@@ -316,7 +324,7 @@
             .comparison-container {
                 flex-direction: column;
             }
-            .comparison-figma {
+            .comparison-figma, .current-locker-img {
                 height: 400px;
             }
             .comparison-tab {
@@ -326,7 +334,7 @@
         }
 
         @media (max-width: 480px) {
-            .comparison-figma {
+            .comparison-figma, .current-locker-img {
                 height: 350px;
             }
         }
@@ -388,52 +396,51 @@
 
             <div class="expanded-info" id="expandedInfo3">
                 <h2>Fortnite Locker Redesign</h2>
-                <p>Rediseño centrado en usabilidad y personalización avanzada</p>
+                <p>User-focused redesign with enhanced customization</p>
                 
-                <!-- SECCIÓN DE COMPARATIVA A/B -->
+                <!-- A/B Comparison Section -->
                 <div class="comparison-section">
                     <div class="comparison-header">
-                        <button class="comparison-tab active" onclick="showComparison('redesign')">MI REDISEÑO</button>
-                        <button class="comparison-tab" onclick="showComparison('original')">LOCKER ACTUAL</button>
+                        <button class="comparison-tab active" onclick="showComparison('redesign')">MY REDESIGN</button>
+                        <button class="comparison-tab" onclick="showComparison('original')">CURRENT LOCKER</button>
                     </div>
                     
                     <div class="comparison-container">
-                        <!-- Tu rediseño -->
+                        <!-- Your Redesign -->
                         <div class="comparison-item" id="redesign-comparison">
-                            <div class="comparison-label">TU VERSIÓN MEJORADA</div>
+                            <div class="comparison-label">IMPROVED VERSION</div>
                             <iframe class="comparison-figma" 
                                     src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=0%3A1&node-id=9-171&hide-ui=1&scaling=contain&starting-point-node-id=9%3A171&show-proto-sidebar=0" 
                                     allowfullscreen>
                             </iframe>
                         </div>
                         
-                        <!-- Locker actual (reemplaza la URL) -->
+                        <!-- Current Locker -->
                         <div class="comparison-item" id="original-comparison" style="display:none">
-                            <div class="comparison-label">VERSIÓN ACTUAL</div>
-                            <iframe class="comparison-figma" 
-                                    src="https://www.figma.com/embed?embed_host=share&url=[TU-URL-DEL-DISEÑO-ACTUAL-AQUÍ]" 
-                                    allowfullscreen>
-                            </iframe>
+                            <div class="comparison-label">CURRENT VERSION (v33.00)</div>
+                            <img class="current-locker-img" 
+                                 src="https://static.wikia.nocookie.net/fortnite/images/f/f7/Locker_%28v33.00%29_-_Mechanic_-_Fortnite.png/revision/latest/scale-to-width-down/1200?cb=20241215083546" 
+                                 alt="Current Fortnite Locker UI">
                         </div>
                     </div>
                 </div>
 
-                <!-- Análisis de mejoras -->
+                <!-- Improvements Analysis -->
                 <div class="improvements-section">
-                    <h3>🔍 ¿Qué mejora mi diseño?</h3>
+                    <h3>🔍 Key Improvements in My Design</h3>
                     <ul>
-                        <li><strong>Flujo optimizado:</strong> 40% menos clics para equipar items</li>
-                        <li><strong>Búsqueda inteligente:</strong> Filtrado por tipo, rareza y temporada</li>
-                        <li><strong>Previsualización 360°:</strong> Gira los skins antes de equiparlos</li>
-                        <li><strong>Organización:</strong> Nuevo sistema de favoritos y colecciones</li>
-                        <li><strong>Personalización:</strong> Combina prendas de diferentes skins</li>
+                        <li><strong>Optimized workflow:</strong> 40% fewer clicks to equip items</li>
+                        <li><strong>Smart search:</strong> Filter by type, rarity and season</li>
+                        <li><strong>360° preview:</strong> Rotate skins before equipping</li>
+                        <li><strong>Better organization:</strong> Enhanced favorites system</li>
+                        <li><strong>Advanced customization:</strong> Mix clothing from different skins</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <button class="scroll-to-top" id="scrollToTop">&#8593;</button>
+    <button class="scroll-to-top" id="scrollToTop">↑</button>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -494,9 +501,12 @@
             scrollToTopButton.addEventListener('click', function() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
+
+            // Initialize comparison
+            showComparison('redesign');
         });
 
-        // Función para mostrar comparativa
+        // Comparison function
         function showComparison(version) {
             const tabs = document.querySelectorAll('.comparison-tab');
             tabs.forEach(tab => tab.classList.remove('active'));
@@ -513,11 +523,6 @@
         function goHome() {
             window.location.href = 'index.html';
         }
-
-        // Inicializar comparativa
-        document.addEventListener('DOMContentLoaded', function() {
-            showComparison('redesign');
-        });
     </script>
 </body>
 </html>
