@@ -192,14 +192,22 @@
             display: flex;
             justify-content: center;
             margin: 20px 0;
+            width: 100%;
+            overflow: hidden;
         }
 
+        /* Default Figma embed style */
         .figma-iframe {
-            width: 100%;
-            height: 800px;
-            min-width: 800px;
             border: none;
             background: transparent;
+            width: 100%;
+            min-height: 500px;
+        }
+
+        /* Special style for Project 3's horizontal design */
+        .figma-iframe.horizontal {
+            height: 800px;
+            min-width: 800px;
         }
 
         /* Current Locker Image Styles */
@@ -292,9 +300,11 @@
                 left: 10px;
             }
             .figma-iframe {
-                width: 100%;
+                min-height: 400px;
+            }
+            .figma-iframe.horizontal {
                 height: 500px;
-                min-width: unset;
+                min-width: 100%;
             }
             .current-locker-img {
                 max-height: 400px;
@@ -370,7 +380,7 @@
                     <!-- Your Redesign -->
                     <div id="redesign-comparison">
                         <div class="figma-container">
-                            <iframe class="figma-iframe" 
+                            <iframe class="figma-iframe horizontal" 
                                     src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=0%3A1&node-id=9-171&hide-ui=1&scaling=min-zoom&starting-point-node-id=9%3A171&show-proto-sidebar=0" 
                                     allowfullscreen>
                             </iframe>
