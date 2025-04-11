@@ -201,6 +201,20 @@
             background: transparent;
         }
 
+        /* Estilos específicos para el proyecto 3 (Fortnite) */
+        #expandedInfo3 .figma-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        #expandedInfo3 .figma-iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 left: -250px;
@@ -214,6 +228,9 @@
             .figma-iframe {
                 width: 100%;
                 height: 500px;
+            }
+            #expandedInfo3 .figma-iframe {
+                height: 300px;
             }
         }
     </style>
@@ -239,21 +256,18 @@
             <p>I specialize in creating user-centered designs that are both beautiful and functional.</p>
             
             <div class="projects">
-                <!-- Video Game App -->
                 <div class="project-card" data-project-id="1">
                     <img src="project1.png" alt="Video Game Lists App">
                     <h3>Video Game Lists App</h3>
                     <p>Organize and track your video game collection</p>
                 </div>
                 
-                <!-- Healthy Diet App -->
                 <div class="project-card" data-project-id="2">
                     <img src="project2.png" alt="Healthy Diet App">
                     <h3>Healthy Diet App</h3>
                     <p>Specialized diet care for health conditions</p>
                 </div>
                 
-                <!-- Fortnite Redesign -->
                 <div class="project-card" data-project-id="3">
                     <img src="project3.png" alt="Fortnite Locker Redesign">
                     <h3>Fortnite Locker Redesign</h3>
@@ -261,7 +275,6 @@
                 </div>
             </div>
 
-            <!-- Video Game App Prototype -->
             <div class="expanded-info" id="expandedInfo1">
                 <h3>Video Game Lists App</h3>
                 <div class="figma-container">
@@ -269,7 +282,6 @@
                 </div>
             </div>
 
-            <!-- Healthy Diet App Prototype -->
             <div class="expanded-info" id="expandedInfo2">
                 <h3>Healthy Diet App</h3>
                 <div class="figma-container">
@@ -277,9 +289,9 @@
                 </div>
             </div>
 
-            <!-- Fortnite Redesign Prototype -->
             <div class="expanded-info" id="expandedInfo3">
                 <h3>Fortnite Locker Redesign</h3>
+                <p>Complete redesign of Fortnite's locker interface focusing on improved navigation and user experience.</p>
                 <div class="figma-container">
                     <iframe class="figma-iframe" src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=0%3A1&node-id=9-171&p=f&viewport=354%2C385%2C0.05&t=gHFTvf62G6aVC85I-1&scaling=contain&content-scaling=fixed" allowfullscreen></iframe>
                 </div>
