@@ -196,7 +196,6 @@
             overflow: hidden;
         }
 
-        /* Default Figma embed style */
         .figma-iframe {
             border: none;
             background: transparent;
@@ -204,13 +203,15 @@
             min-height: 500px;
         }
 
-        /* Special style for Project 3's horizontal design - TAMAÑO AJUSTADO */
+        /* ESTILO MEJORADO PARA EL LOCKER */
         .figma-iframe.horizontal {
+            width: 90%;
             height: 600px;
-            min-width: 600px;
+            transform: scale(0.8);
+            transform-origin: top center;
+            margin: -60px 0;
         }
 
-        /* Current Locker Image Styles */
         .current-locker-container {
             width: 100%;
             max-width: 800px;
@@ -230,7 +231,6 @@
             margin: 0 auto;
         }
 
-        /* Comparison Section */
         .comparison-section {
             background: rgba(20, 20, 20, 0.8);
             border-radius: 12px;
@@ -303,8 +303,10 @@
                 min-height: 400px;
             }
             .figma-iframe.horizontal {
+                width: 100%;
                 height: 400px;
-                min-width: 100%;
+                transform: scale(1);
+                margin: 0;
             }
             .current-locker-img {
                 max-height: 400px;
@@ -320,12 +322,12 @@
             <div class="logo" onclick="goHome()">
                 <img src="logo.png" alt="Logo de Onin">
             </div>
-            <a href="poster-design.html">Diseño de Posters</a>
-            <a href="wallpaper-design.html">Diseño de Fondos</a>
-            <a href="logo-design.html">Diseño de Logos</a>
-            <a href="ui-ux-design.html" class="active">Diseño UI/UX</a>
-            <a href="contact.html">Contacto</a>
-            <a href="services.html">Servicios</a>
+            <a href="poster-design">Diseño de Posters</a>
+            <a href="wallpaper-design">Diseño de Fondos</a>
+            <a href="logo-design">Diseño de Logos</a>
+            <a href="ui-ux-design" class="active">Diseño UI/UX</a>
+            <a href="contact">Contacto</a>
+            <a href="services">Servicios</a>
         </div>
 
         <div class="content">
@@ -370,24 +372,21 @@
                 <h2>Rediseño de Locker de Fortnite</h2>
                 <p>Rediseño centrado en el usuario con mejoras en la personalización</p>
                 
-                <!-- Sección de Comparación -->
                 <div class="comparison-section">
                     <div class="comparison-header">
                         <button class="comparison-tab active" onclick="showComparison('redesign')">MI REDISEÑO</button>
                         <button class="comparison-tab" onclick="showComparison('original')">LOCKER ACTUAL</button>
                     </div>
                     
-                    <!-- Tu Rediseño -->
                     <div id="redesign-comparison">
                         <div class="figma-container">
                             <iframe class="figma-iframe horizontal" 
-                                    src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=0%3A1&node-id=9-171&hide-ui=1&scaling=min-zoom&starting-point-node-id=9%3A171&show-proto-sidebar=0" 
+                                    src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/tdj2q8R4NOjvNRQWrbK6Bb/ReDesign?page-id=0%3A1&node-id=9-171&hide-ui=1&scaling=contain&starting-point-node-id=9%3A171&show-proto-sidebar=0" 
                                     allowfullscreen>
                             </iframe>
                         </div>
                     </div>
                     
-                    <!-- Locker Actual -->
                     <div id="original-comparison" style="display:none">
                         <div class="current-locker-container">
                             <img class="current-locker-img" 
@@ -397,7 +396,6 @@
                     </div>
                 </div>
 
-                <!-- Sección de Mejoras -->
                 <div class="improvements-section">
                     <h3>Mejoras Clave en Mi Diseño</h3>
                     <ul>
@@ -422,7 +420,6 @@
             const scrollToTopButton = document.getElementById('scrollToTop');
             let currentExpandedInfo = null;
 
-            // Toggle sidebar
             menuBtn.addEventListener('click', function() {
                 if (sidebar.style.left === '0px') {
                     sidebar.style.left = '-250px';
@@ -435,7 +432,6 @@
                 }
             });
 
-            // Expand/collapse project info
             document.querySelectorAll('.project-card').forEach(card => {
                 card.addEventListener('click', function() {
                     const projectId = this.getAttribute('data-project-id');
@@ -453,14 +449,11 @@
                         expandedInfo.classList.add('active');
                         this.classList.add('active');
                         currentExpandedInfo = expandedInfo;
-
-                        // Smooth scroll to expanded section
                         expandedInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 });
             });
 
-            // Show/hide scroll-to-top button
             window.onscroll = function() {
                 if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
                     scrollToTopButton.classList.add('show');
@@ -469,23 +462,19 @@
                 }
             };
 
-            // Scroll to top
             scrollToTopButton.addEventListener('click', function() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // Initialize comparison
             showComparison('redesign');
         });
 
-        // Comparison function
         function showComparison(version) {
             document.getElementById('redesign-comparison').style.display = 
                 version === 'redesign' ? 'block' : 'none';
             document.getElementById('original-comparison').style.display = 
                 version === 'original' ? 'block' : 'none';
             
-            // Update active tab
             document.querySelectorAll('.comparison-tab').forEach(tab => {
                 tab.classList.toggle('active', 
                     tab.getAttribute('onclick').includes(version));
@@ -493,7 +482,7 @@
         }
 
         function goHome() {
-            window.location.href = 'index.html';
+            window.location.href = '/';
         }
     </script>
 </body>
